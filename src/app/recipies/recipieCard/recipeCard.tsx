@@ -3,7 +3,7 @@ import { Clock, Users } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@components/components/ui/card"
 import { Badge } from "@components/components/ui/badge"
 // import { type Recipe } from "../../../types/recipie"
-import {Recipe} from "@types/recipie"
+import {Recipe} from "@components/app/recipies/recipie"
 import { useRouter } from 'next/navigation'
 
 

@@ -2,13 +2,12 @@
 
 import { useState } from "react"
 import { RecipeList } from "./recipiesList/recipieList"
-import { RecipeForm } from "./recipieForm/recipieForm"
-import type { Recipe } from "@types/recipe"
+import type { Recipe } from "./recipie"
 import { Button } from "@components/components/ui/button"
 import Link from "next/link"
 
 export default function RecipePage() {
-  const [recipes, setRecipes] = useState<Recipe[]>([
+  const [recipes] = useState<Recipe[]>([
     {
       id: "1",
       name: "Spaghetti Carbonara",

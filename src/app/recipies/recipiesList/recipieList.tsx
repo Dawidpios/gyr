@@ -1,4 +1,4 @@
-import type { Recipe } from "@types/recipie"
+import type { Recipe } from "@components/app/recipies/recipie"
 import { RecipeCard } from "../recipieCard/recipeCard"
 
 interface RecipeListProps {
