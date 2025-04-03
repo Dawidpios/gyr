@@ -256,7 +256,7 @@ function SidebarTrigger({
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar } = useSidebar()
-debugger
+
   return (
     <Button
       data-sidebar="trigger"
