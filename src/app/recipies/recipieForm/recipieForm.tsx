@@ -19,7 +19,7 @@ import { Textarea } from "@components/components/ui/textarea";
 import addRecipe from "./add-recipe";
 import { useState, useRef } from "react";
 import addImage from "@components/app/utils/addImage";
-import { revalidatePath } from "next/cache";
+import revalidate from "@lib/revalidate";
 
 const ingredientSchema = z.object({
   name: z.string().min(1, "Nazwa składnika jest wymagana"),
@@ -101,7 +101,7 @@ export function RecipeForm() {
       }
     });
     await addRecipe(formData);
-    revalidatePath("/recipies");
+    revalidate("/recipies");
     form.reset();
   }
   
