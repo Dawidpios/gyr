@@ -13,7 +13,7 @@ export default async function RecipePage({
 }) {
   const { id } = await params;
   const recipe = await prisma.recipes.findUnique({ where: { id: id } });
-  const ingredients = recipe?.ingredients as Ingredient[];
+  const ingredients = recipe?.ingredients as unknown as Ingredient[];
   console.log(Array.isArray(ingredients) , typeof ingredients)
   return (
     <div className="container mx-auto px-4 py-8">
