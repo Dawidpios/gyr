@@ -4,7 +4,7 @@ import { getAllRecipes } from "./getAllRecipies"
 export async function RecipeList() {
   try {
     const recipes = await getAllRecipes()
-    
+    console.log("Fetched recipes:", recipes);
     if (!recipes || recipes.length === 0) {
       return <div className="text-muted-foreground">No recipes yet. Add your first recipe!</div>
     }
