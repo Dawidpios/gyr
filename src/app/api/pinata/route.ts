@@ -8,8 +8,8 @@ export async function POST(request: NextRequest) {
     console.log('PINATA_SECRET_API_KEY=', process.env.PINATA_GATEWAY_URL);
     const data = await request.formData()
     const file : File | null = data.get('file') as unknown as File
-    const { cid } = await pinata.upload.public.file(file)
-    const url = await pinata.gateways.public.convert(cid);
+    const { IpfsHash: cid } = await pinata.pinFileToIPFS(file)
+    const url = `https://gateway.pinata.cloud/ipfs/${cid}`;
     return NextResponse.json({ url }, { status: 200 })
   } catch(e) {
     console.log(e)
