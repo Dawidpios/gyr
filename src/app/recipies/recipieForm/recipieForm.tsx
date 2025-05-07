@@ -17,8 +17,7 @@ import {
 import { Input } from "@components/components/ui/input";
 import { Textarea } from "@components/components/ui/textarea";
 import addRecipe from "./add-recipe";
-import { useState, useRef } from "react";
-import addImage from "@components/app/utils/addImage";
+import { useState } from "react";
 import revalidate from "@lib/revalidate";
 
 const ingredientSchema = z.object({
@@ -54,7 +53,7 @@ export function RecipeForm() {
     amount: "",
     unit: "",
   });
-  const fileRef = useRef<null | HTMLInputElement>(null);
+  // const fileRef = useRef<null | HTMLInputElement>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -105,10 +104,10 @@ export function RecipeForm() {
     form.reset();
   }
   
-  const setImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const url = await addImage(e)
-    form.setValue("image", url as string);
-  };
+  // const setImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const url = await addImage(e)
+  //   form.setValue("image", url as string);
+  // };
 
   return (
     <Card className="m-2 w-3/4 justify-center">
@@ -251,7 +250,7 @@ export function RecipeForm() {
                 )}
               />
             </div>
-            <div style={{ display: "none" }} className="grid grid-cols-2 gap-4">
+            {/* <div style={{ display: "none" }} className="grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
                 name="image"
@@ -270,14 +269,14 @@ export function RecipeForm() {
                   </FormItem>
                 )}
               />
-            </div>
-            <Button
+            </div> */}
+            {/* <Button
               type="button"
               className="w-1/4"
               onClick={() => fileRef.current && fileRef.current.click()}
             >
               Add image
-            </Button>
+            </Button> */}
             <Button type="submit" className="w-full">
               <PlusCircle className="mr-2 h-4 w-4" />
               Add Recipe
