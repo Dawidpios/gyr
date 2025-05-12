@@ -1,5 +1,6 @@
 "use client";
 
+import revalidate from "@components/lib/revalidate";
 import { Bookmark } from "lucide-react";
 
 export default function AddToListButton({ recipeId }: { recipeId: string }) {
@@ -11,6 +12,7 @@ export default function AddToListButton({ recipeId }: { recipeId: string }) {
         "Content-Type": "application/json",
       },
     });
+    revalidate("/list");
     if (!response.ok) {
       console.error("Failed to add to shopping list");
     }
