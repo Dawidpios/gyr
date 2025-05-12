@@ -8,7 +8,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@components/components/ui/sidebar";
-import { Refrigerator, Home, Search, Settings, CookingPot } from "lucide-react";
+import {
+  Refrigerator,
+  Home,
+  Search,
+  Settings,
+  CookingPot,
+  ListChecks,
+} from "lucide-react";
 import Link from "next/link";
 import LinkWrapper from "./LinkWrapper";
 
@@ -27,6 +34,11 @@ const items = [
     title: "Recipies",
     url: "/recipies",
     icon: CookingPot,
+  },
+  {
+    title: "My list",
+    url: "/list",
+    icon: ListChecks,
   },
   {
     title: "Search",
@@ -51,14 +63,12 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    
-                      <Link href={item.url}>
+                    <Link href={item.url}>
                       <LinkWrapper>
                         <item.icon />
                         <span>{item.title}</span>
-                        </LinkWrapper>
-                      </Link>
-                    
+                      </LinkWrapper>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

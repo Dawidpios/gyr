@@ -4,7 +4,7 @@ export interface Ingredient {
   unit: string
 }
 
-export interface Recipe {
+export type Recipe = {
   id: string
   title: string
   ingredients: Ingredient[]

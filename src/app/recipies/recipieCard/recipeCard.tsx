@@ -1,11 +1,11 @@
 'use client'
-import Image from "next/image"
+
 import { Clock, Users } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@components/components/ui/card"
 import { Badge } from "@components/components/ui/badge"
 import { Recipe } from "@components/app/recipies/recipie"
 import { useRouter } from 'next/navigation'
-import getImageUrl from "@components/app/utils/getImageUrl"
+
 
 interface RecipeCardProps {
   recipe: Recipe
@@ -22,14 +22,6 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
   return (
     <Card onClick={cardHandler}>
       <CardHeader className="flex flex-row items-start gap-4 space-y-0">
-        <div className="relative h-16 w-16 overflow-hidden rounded-md">
-          <Image
-            src={getImageUrl(recipe.image) || '/placeholder.jpg'}
-            alt={recipe.title}
-            fill
-            className="object-cover"
-          />
-        </div>
         <div className="space-y-1">
           <CardTitle>{recipe.title}</CardTitle>
           <div className="flex flex-wrap gap-2">
