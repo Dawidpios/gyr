@@ -4,7 +4,7 @@ import { Recipe } from "../recipie";
 
 export async function RecipeList({ recipesList = [] }: { recipesList?: Recipe[] }) {
   try {
-    const recipes = recipesList || (await getAllRecipes());
+    const recipes = recipesList.length > 0 ? recipesList : (await getAllRecipes());
     console.log("Fetched recipes:", recipes);
     if (!recipes || recipes.length === 0) {
       return (
