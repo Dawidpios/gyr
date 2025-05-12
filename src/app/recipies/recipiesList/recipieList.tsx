@@ -2,7 +2,7 @@ import { RecipeCard } from "../recipieCard/recipeCard";
 import { getAllRecipes } from "./getAllRecipies";
 import { Recipe } from "../recipie";
 
-export async function RecipeList({ recipesList }: { recipesList: Recipe[] }) {
+export async function RecipeList({ recipesList = [] }: { recipesList?: Recipe[] }) {
   try {
     const recipes = recipesList || (await getAllRecipes());
     console.log("Fetched recipes:", recipes);
