@@ -1,6 +1,5 @@
 
-import { format } from "date-fns"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@components/components/ui/card"
+import { Card, CardDescription, CardHeader, CardTitle } from "@components/components/ui/card"
 import { SidebarInset, SidebarProvider } from "@components/components/ui/sidebar"
 import {FridgeSideBar} from "./FridgeSideBar/FridgeSideBar"
 import prisma from "@lib/prisma"
@@ -11,7 +10,6 @@ type Product = {
   name: string
   quantity: number
   category: string
-  expiryDate: Date | null
 }
 
 
@@ -52,11 +50,6 @@ export default async function FridgePage() {
                   </div>
                   <CardDescription>Quantity: {product.quantity}</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    Expires: {product.expiryDate ? format(product.expiryDate, "PPP") : "No expiry date"}
-                  </p>
-                </CardContent>
               </Card>
             ))}
           </div>

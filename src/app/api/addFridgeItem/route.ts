@@ -9,8 +9,7 @@ export async function POST(req: Request) {
       data: {
         name: data.name,
         quantity: data.quantity,
-        category: data.category,
-        expiryDate: data.expiryDate || null,
+        category: data.category
       },
     });
 
