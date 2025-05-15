@@ -1,17 +1,25 @@
-
-import { Card, CardDescription, CardHeader, CardTitle } from "@components/components/ui/card"
-import { SidebarInset, SidebarProvider } from "@components/components/ui/sidebar"
-import {FridgeSideBar} from "./FridgeSideBar/FridgeSideBar"
-import prisma from "@lib/prisma"
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@components/components/ui/card";
+import {
+  SidebarInset,
+  SidebarProvider,
+} from "@components/components/ui/sidebar";
+import { FridgeSideBar } from "./FridgeSideBar/FridgeSideBar";
+import prisma from "@lib/prisma";
+import ControlPanel from "./controlPanel/controlPanel";
+import { updateItemQuantity, deleteItem } from "./controlPanel/fridgeHelpers";
 
 // Define product type
 type Product = {
-  id: string
-  name: string
-  quantity: number
-  category: string
-}
-
+  id: string;
+  name: string;
+  quantity: number;
+  category: string;
+};
 
 // Categories with emoji icons
 const categories = [
@@ -23,11 +31,11 @@ const categories = [
   { value: "beverages", label: "Beverages 🥤" },
   { value: "snacks", label: "Snacks 🍪" },
   { value: "other", label: "Other 📦" },
-]
+];
 
 const getFridgeItems = async () => {
-  return await prisma.fridgeItem.findMany()
-}
+  return await prisma.fridgeItem.findMany();
+};
 
 export default async function FridgePage() {
   const products = await getFridgeItems();
@@ -45,11 +53,16 @@ export default async function FridgePage() {
                   <div className="flex items-center justify-between">
                     <CardTitle>{product.name}</CardTitle>
                     <div className="rounded-full bg-muted px-2 py-1 text-xs font-medium">
-                      {categories.find((c) => c.value === product.category)?.label.split(" ")[1] || "📦"}
+                      {categories
+                        .find((c) => c.value === product.category)
+                        ?.label.split(" ")[1] || "📦"}
                     </div>
                   </div>
-                  <CardDescription>Quantity: {product.quantity}</CardDescription>
+                  <CardDescription>
+                    Quantity: {product.quantity}
+                  </CardDescription>
                 </CardHeader>
+                <ControlPanel id={product.id} updateItemQuantity={updateItemQuantity} deleteItem={deleteItem}/>
               </Card>
             ))}
           </div>
