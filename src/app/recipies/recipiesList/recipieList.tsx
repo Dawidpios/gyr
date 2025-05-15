@@ -1,8 +1,9 @@
 import { RecipeCard } from "../recipieCard/recipeCard";
 import { getAllRecipes } from "./getAllRecipies";
 import { Recipe } from "../recipie";
+import { deleteRecipe } from "./deleteRecipe";
 
-export async function RecipeList({ recipesList = [] }: { recipesList?: Recipe[] }) {
+export async function RecipeList({ recipesList = [], revalidatePath = "/list" }: { recipesList?: Recipe[], revalidatePath: string }) {
   try {
     const recipes = recipesList.length > 0 ? recipesList : (await getAllRecipes());
     console.log("Fetched recipes:", recipes);
@@ -15,7 +16,7 @@ export async function RecipeList({ recipesList = [] }: { recipesList?: Recipe[] 
     }
 
     return (
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-wrap gap-4">
         {recipes.map((recipe) => (
           <RecipeCard
             key={recipe.id}
@@ -28,6 +29,8 @@ export async function RecipeList({ recipesList = [] }: { recipesList?: Recipe[] 
                   ? JSON.parse(recipe.ingredients)
                   : recipe.ingredients,
             }}
+            revalidatePath={revalidatePath}
+            deleteRecipe={deleteRecipe}
           />
         ))}
       </div>
