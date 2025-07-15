@@ -21,6 +21,7 @@ export async function POST(req: NextRequest) {
   const authUser = await comparePassword(password, user.password);
   console.log("authUser", authUser);
   if (authUser) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...userWithoutPass } = user;
     return NextResponse.json({ ...userWithoutPass }, { status: 200 });
   } else {

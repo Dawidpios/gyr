@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import LinkWrapper from "./LinkWrapper";
-import { useSession, signOut, signIn } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 export function AppSidebar() {
   const { data, status } = useSession();
