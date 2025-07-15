@@ -11,7 +11,10 @@ export async function POST(req: Request) {
       await prisma.fridgeItem
         .update({
           where: {
-            name: data.name,
+            name_fridgeId: {
+              name: data.name,
+              fridgeId: data.fridgeId,
+            },
           },
           data: {
             quantity: {

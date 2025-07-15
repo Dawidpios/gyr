@@ -10,6 +10,10 @@ export async function POST(req: Request) {
     list = await prisma.list.create({
       data: {
         name: "Default List",
+        user: {
+          // Replace 'userId' with the actual user id you want to associate
+          connect: { id: data.userId }
+        }
       },
     });
   }
