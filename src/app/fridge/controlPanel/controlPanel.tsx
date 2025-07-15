@@ -38,6 +38,18 @@ const ControlPanel = ({
     }
   };
 
+  const pythonHandler = () => {
+    fetch("https://gyrpython.onrender.com/api/fridgeItems", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ items: ["jabłko", "banan"] }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
+
   return (
     <div className="w-full flex items-start p-4 gap-2">
       <div className="flex flex-col gap-2">
@@ -67,6 +79,7 @@ const ControlPanel = ({
         className="ml-auto cursor-pointer self-start"
         onClick={deleteItemHandler}
       />
+      <button onClick={pythonHandler}>Hello PY!</button>
     </div>
   );
 };

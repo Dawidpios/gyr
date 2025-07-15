@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sidebar,
   SidebarContent,
@@ -15,44 +17,71 @@ import {
   Settings,
   CookingPot,
   ListChecks,
+  KeyRound,
+  UserPlus,
 } from "lucide-react";
 import Link from "next/link";
 import LinkWrapper from "./LinkWrapper";
-
-const items = [
-  {
-    title: "Home",
-    url: "/",
-    icon: Home,
-  },
-  {
-    title: "Fridge",
-    url: "/fridge",
-    icon: Refrigerator,
-  },
-  {
-    title: "Recipies",
-    url: "/recipies",
-    icon: CookingPot,
-  },
-  {
-    title: "My list",
-    url: "/list",
-    icon: ListChecks,
-  },
-  {
-    title: "Search",
-    url: "/search",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "/settings",
-    icon: Settings,
-  },
-];
+import { useSession, signOut, signIn } from "next-auth/react";
 
 export function AppSidebar() {
+  const { data, status } = useSession();
+  console.log(data, status);
+  const items = [
+    {
+      title: "Home",
+      url: "/",
+      icon: Home,
+    },
+    {
+      title: "Fridge",
+      url: "/fridge",
+      icon: Refrigerator,
+    },
+    {
+      title: "Recipies",
+      url: "/recipies",
+      icon: CookingPot,
+    },
+    {
+      title: "My list",
+      url: "/list",
+      icon: ListChecks,
+    },
+    {
+      title: "Search",
+      url: "/search",
+      icon: Search,
+    },
+    {
+      title: "Settings",
+      url: "/settings",
+      icon: Settings,
+      show: status === "authenticated",
+    },
+    {
+      title: "Register",
+      url: "/register",
+      icon: UserPlus,
+      user: true,
+      show: status === "unauthenticated",
+    },
+    {
+      title: "Login",
+      url: "/login",
+      icon: KeyRound,
+      user: true,
+      show: status === "unauthenticated",
+    },
+    {
+      title: "Logout",
+      icon: KeyRound,
+      user: true,
+      show: status === "authenticated",
+      event: signOut,
+    },
+  ];
+
   return (
     <Sidebar>
       <SidebarContent>
@@ -60,18 +89,39 @@ export function AppSidebar() {
           <SidebarGroupLabel>Get Your Recipie</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                      <LinkWrapper>
-                        <item.icon />
-                        <span>{item.title}</span>
-                      </LinkWrapper>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {items
+                .filter((item) => item.show === undefined || item.show)
+                .map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      {item.user ? (
+                        <Link
+                          href={item.url || "#"}
+                          onClick={
+                            item.event
+                              ? (e) => {
+                                  e.preventDefault();
+                                  item.event();
+                                }
+                              : undefined
+                          }
+                        >
+                          <LinkWrapper>
+                            <item.icon />
+                            <span>{item.title}</span>
+                          </LinkWrapper>
+                        </Link>
+                      ) : (
+                        <Link href={item.url || "#"}>
+                          <LinkWrapper>
+                            <item.icon />
+                            <span>{item.title}</span>
+                          </LinkWrapper>
+                        </Link>
+                      )}
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

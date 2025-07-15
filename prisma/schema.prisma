@@ -8,6 +8,22 @@ datasource db {
   directUrl = env("DATABASE_URL")
 }
 
+model User {
+  id        String    @id @default(cuid())
+  name      String?
+  email     String?   @unique
+  password  String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  posts     Post[]
+  fridge    Fridge?   @relation("UserFridge")
+  list      List?     @relation("UserList")
+  myRecipes Recipes[] @relation("UserMyRecipes")
+  recipes   Recipes[] @relation("UserRecipes")
+
+  @@map("users")
+}
+
 model Post {
   id        String  @id @default(cuid())
   title     String
@@ -15,17 +31,6 @@ model Post {
   published Boolean @default(false)
   authorId  String?
   author    User?   @relation(fields: [authorId], references: [id])
-}
-
-model User {
-  id        String   @id @default(cuid())
-  name      String?
-  email     String?  @unique
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  posts     Post[]
-
-  @@map("users")
 }
 
 model Recipes {
@@ -37,8 +42,11 @@ model Recipes {
   ingredients Json     @db.Json
   desc        String
   image       String
+  authorId    String?
   listId      String?
+  author      User?    @relation("UserMyRecipes", fields: [authorId], references: [id])
   list        List?    @relation(fields: [listId], references: [id])
+  users       User[]   @relation("UserRecipes")
 
   @@map("recipes")
 }
@@ -47,18 +55,34 @@ model List {
   id         String    @id @default(cuid())
   created_at DateTime  @default(now()) @db.Timestamptz(6)
   name       String
+  userId     String    @unique
+  user       User      @relation("UserList", fields: [userId], references: [id])
   recipes    Recipes[]
 
   @@map("list")
 }
 
+model Fridge {
+  id         String       @id @default(cuid())
+  created_at DateTime     @default(now()) @db.Timestamptz(6)
+  name       String
+  userId     String       @unique
+  user       User         @relation("UserFridge", fields: [userId], references: [id])
+  items      FridgeItem[]
+
+  @@map("fridge")
+}
+
 model FridgeItem {
   id         String   @id @default(cuid())
-  name       String   @unique
+  name       String
   quantity   Int
   created_at DateTime @default(now()) @db.Timestamptz(6)
   updated_at DateTime @updatedAt @db.Timestamptz(6)
   category   String
+  fridgeId   String?
+  fridge     Fridge?  @relation(fields: [fridgeId], references: [id])
 
+  @@unique([name, fridgeId])
   @@map("fridgeItem")
 }
