@@ -5,8 +5,8 @@ import { CirclePlus, CircleMinus, Trash, PackagePlus } from "lucide-react";
 
 interface ControlPanelProps {
   id: string;
-  updateItemQuantity: (fridgeId: string, itemQuantity: number) => Promise<void>;
-  deleteItem: (fridgeId: string) => Promise<void>;
+  updateItemQuantity: (itemId: string, itemQuantity: number) => Promise<void>;
+  deleteItem: (itemId: string) => Promise<void>;
 }
 
 const ControlPanel = ({
@@ -38,17 +38,7 @@ const ControlPanel = ({
     }
   };
 
-  const pythonHandler = () => {
-    fetch("https://gyrpython.onrender.com/api/fridgeItems", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ items: ["jabłko", "banan"] }),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  };
+
 
   return (
     <div className="w-full flex items-start p-4 gap-2">
@@ -79,7 +69,6 @@ const ControlPanel = ({
         className="ml-auto cursor-pointer self-start"
         onClick={deleteItemHandler}
       />
-      <button onClick={pythonHandler}>Hello PY!</button>
     </div>
   );
 };

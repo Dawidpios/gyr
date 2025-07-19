@@ -5,7 +5,6 @@ import { comparePassword } from "./comparePassword";
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const { email, password } = body;
-  console.log("COS SIE DZIEJE?");
   if (!email || !password) {
     return NextResponse.json(
       { msg: "You need to pass email and password" },
@@ -19,7 +18,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ msg: "User not found" }, { status: 404 });
   }
   const authUser = await comparePassword(password, user.password);
-  console.log("authUser", authUser);
+
   if (authUser) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...userWithoutPass } = user;

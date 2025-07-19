@@ -9,6 +9,7 @@ interface Ingredient {
 }
 
 const addRecipe = async (formData: FormData) => {
+ 
   try {
     const title = formData.get('title') as string
     const time = parseFloat(formData.get('time') as string)
@@ -16,6 +17,7 @@ const addRecipe = async (formData: FormData) => {
     const desc = formData.get('desc') as string
     const ingredientsRaw = formData.get('ingredients') as string
     const ingredients = JSON.parse(ingredientsRaw) as Ingredient[]
+    const authorId = formData.get('authorId') as string
 
     const image = formData.get('image') as string
 
@@ -30,7 +32,8 @@ const addRecipe = async (formData: FormData) => {
         portion,
         desc,
         ingredients: ingredients as unknown as Prisma.InputJsonValue,
-        image
+        image,
+        authorId
       }
     })
 

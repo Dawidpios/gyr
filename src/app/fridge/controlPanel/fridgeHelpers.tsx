@@ -3,17 +3,13 @@ import prisma from "@components/lib/prisma";
 import revalidate from "@components/lib/revalidate";
 
 export const updateItemQuantity = async (
-  fridgeId: string,
+  itemId: string,
   itemQuantity: number
 ) => {
   try {
-    await prisma.fridgeItem.update({
-      where: { id: fridgeId },
-      data: {
-        quantity: {
-          increment: itemQuantity,
-        },
-      },
+       await prisma.fridgeItem.update({
+      where: { id: itemId },
+      data: { quantity: { increment: itemQuantity } }
     });
     revalidate("/fridge");
   } catch (err) {

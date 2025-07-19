@@ -3,10 +3,16 @@ import prisma from "@lib/prisma";
 import findItem from "./findItem";
 
 export async function POST(req: Request) {
-  const data = await req.json();
-
+  const { values, fridgeId } = await req.json();
+  const data = { ...values, fridgeId };
+  if (!data.name || !data.fridgeId || !data.quantity || !data.category) {
+    return NextResponse.json(
+      { error: "All fields are required" },
+      { status: 400 }
+    );
+  }
   try {
-    const itemExists = await findItem(data.name);
+    const itemExists = await findItem(data.name, data.fridgeId);
     if (itemExists) {
       await prisma.fridgeItem
         .update({
@@ -30,6 +36,7 @@ export async function POST(req: Request) {
 
     const product = await prisma.fridgeItem.create({
       data: {
+        fridgeId: data.fridgeId,
         name: data.name,
         quantity: data.quantity,
         category: data.category,

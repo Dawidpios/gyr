@@ -25,8 +25,8 @@ import LinkWrapper from "./LinkWrapper";
 import { useSession, signOut } from "next-auth/react";
 
 export function AppSidebar() {
-  const { data, status } = useSession();
-  console.log(data, status);
+  const { status } = useSession();
+
   const items = [
     {
       title: "Home",

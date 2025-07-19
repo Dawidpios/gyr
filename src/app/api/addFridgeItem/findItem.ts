@@ -1,19 +1,19 @@
 import prisma from "@components/lib/prisma";
 
-export default async function findItem(name: string) {
+export default async function findItem(name: string, fridgeId: string) {
   try {
     const item = await prisma.fridgeItem.findFirst({
       where: {
-        name: name
-      }
-    })
-    if(item) {
-      return true
+        name: name,
+        fridgeId: fridgeId,
+      },
+    });
+    if (item) {
+      return true;
     }
-    return false
-  } catch (err) { 
+    return false;
+  } catch (err) {
     console.error("Error finding item:", err);
-    return false
+    return false;
   }
-  
 }

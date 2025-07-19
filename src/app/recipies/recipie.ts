@@ -12,5 +12,6 @@ export type Recipe = {
   time: number
   portion: number
   image?: string
+  authorId?: string | null
 }
 

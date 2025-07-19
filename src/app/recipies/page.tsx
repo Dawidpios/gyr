@@ -1,5 +1,6 @@
 import { RecipeList } from "./recipiesList/recipieList";
 import AddRecipieButton from "./add-recipie/AddRecipieButton";
+import Link from "next/link";
 
 export default function RecipePage() {
   return (
@@ -17,6 +18,12 @@ export default function RecipePage() {
           {/* <RecipeForm onAddRecipe={addRecipe} /> */}
         {/* </div> */}
       </div>
+      <Link
+        href="/recipies/my-recipes"
+        className="flex items-center gap-2 text-blue-500 hover:underline"
+      >
+        My Recipes
+      </Link>
     </div>
   );
 }

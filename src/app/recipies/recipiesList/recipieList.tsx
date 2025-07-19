@@ -3,10 +3,18 @@ import { getAllRecipes } from "./getAllRecipies";
 import { Recipe } from "../recipie";
 import { deleteRecipe } from "./deleteRecipe";
 
-export async function RecipeList({ recipesList = [], revalidatePath = "/list" }: { recipesList?: Recipe[], revalidatePath: string }) {
+export async function RecipeList({
+  recipesList = [],
+  revalidatePath = "/list",
+  getAll = true,
+}: {
+  recipesList?: Recipe[];
+  revalidatePath: string;
+  getAll?: boolean;
+}) {
   try {
-    const recipes = recipesList.length > 0 ? recipesList : (await getAllRecipes());
-    console.log("Fetched recipes:", recipes);
+    const recipes = !getAll ? recipesList : await getAllRecipes();
+
     if (!recipes || recipes.length === 0) {
       return (
         <div className="text-muted-foreground">
@@ -28,6 +36,7 @@ export async function RecipeList({ recipesList = [], revalidatePath = "/list" }:
                 typeof recipe.ingredients === "string"
                   ? JSON.parse(recipe.ingredients)
                   : recipe.ingredients,
+              authorId: recipe.authorId || null,
             }}
             revalidatePath={revalidatePath}
             deleteRecipe={deleteRecipe}

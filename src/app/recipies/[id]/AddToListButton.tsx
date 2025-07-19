@@ -2,12 +2,18 @@
 
 import revalidate from "@components/lib/revalidate";
 import { Bookmark } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 export default function AddToListButton({ recipeId }: { recipeId: string }) {
+  const { data: session } = useSession();
+
+  if( !session?.user) {
+    return null; 
+  }
   const addToList = async () => {
     const response = await fetch("/api/shopping-list", {
       method: "POST",
-      body: JSON.stringify({ recipeId }),
+      body: JSON.stringify({ recipeId, userId: session.user.id }),
       headers: {
         "Content-Type": "application/json",
       },

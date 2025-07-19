@@ -19,6 +19,8 @@ import { Textarea } from "@components/components/ui/textarea";
 import addRecipe from "./add-recipe";
 import { useState } from "react";
 import revalidate from "@lib/revalidate";
+import { useSession } from "next-auth/react";
+
 
 const ingredientSchema = z.object({
   name: z.string().min(1, "Nazwa składnika jest wymagana"),
@@ -48,6 +50,8 @@ const formSchema = z.object({
 const UNITS = ["g", "ml", "szt", "łyżka", "łyżeczka", "szklanka"];
 
 export function RecipeForm() {
+  const session = useSession()
+
   const [newIngredient, setNewIngredient] = useState({
     name: "",
     amount: "",
@@ -93,12 +97,15 @@ export function RecipeForm() {
   };
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
+    if(session.status !== "authenticated") return
+
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
       if (value !== undefined) {
         formData.append(key, JSON.stringify(value));
       }
     });
+    formData.append("authorId", session.data?.user.id || "");
     await addRecipe(formData);
     revalidate("/recipies");
     form.reset();

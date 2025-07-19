@@ -48,9 +48,10 @@ type ProductFormValues = z.infer<typeof formSchema>;
 
 type ProductSidebarProps = {
   categories: { value: string; label: string }[];
+  id: string
 };
 
-export function FridgeSideBar({ categories }: ProductSidebarProps) {
+export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -67,7 +68,7 @@ export function FridgeSideBar({ categories }: ProductSidebarProps) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({values, fridgeId: id}),
       });
       form.reset({
         name: "",

@@ -10,6 +10,7 @@ import {
 import { Badge } from "@components/components/ui/badge";
 import { Recipe } from "@components/app/recipies/recipie";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -22,6 +23,8 @@ export function RecipeCard({
   revalidatePath,
   deleteRecipe,
 }: RecipeCardProps) {
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
   const router = useRouter();
 
   const cardHandler = () => {
@@ -61,10 +64,12 @@ export function RecipeCard({
           </div>
         </div>
         <div className="flex justify-center mt-4 gap-3">
-          <Trash
-            className="cursor-pointer"
-            onClick={() => deleteRecipe(recipe.id, revalidatePath)}
-          />
+          {recipe.authorId === userId && (
+            <Trash
+              className="cursor-pointer"
+              onClick={() => deleteRecipe(recipe.id, revalidatePath)}
+            />
+          )}
           <BookOpenText onClick={cardHandler} />
         </div>
       </CardContent>
