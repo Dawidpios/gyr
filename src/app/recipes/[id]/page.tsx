@@ -1,10 +1,8 @@
-
-import  prisma  from "@lib/prisma";
+import prisma from "@lib/prisma";
 import { Card, CardContent } from "@components/components/ui/card";
 import { Clock, Users } from "lucide-react";
-import { Ingredient } from "../recipie";
+import { Ingredient } from "../recipe";
 import AddToListButton from "./AddToListButton";
-
 
 export default async function RecipePage({
   params,
@@ -38,11 +36,12 @@ export default async function RecipePage({
           <div className="mb-6">
             <h2 className="mb-3 text-xl font-semibold">Ingredients</h2>
             <ul className="ml-5 list-disc space-y-2">
-              {ingredients && ingredients?.map((ingredient: Ingredient) => (
-                <li key={ingredient.name}>
-                  {ingredient.name} {ingredient.amount} {ingredient.unit}
-                </li>
-              ))}
+              {ingredients &&
+                ingredients?.map((ingredient: Ingredient) => (
+                  <li key={ingredient.name}>
+                    {ingredient.name} {ingredient.amount} {ingredient.unit}
+                  </li>
+                ))}
             </ul>
           </div>
           <div className="mt-8 flex flex-wrap gap-4">

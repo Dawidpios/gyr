@@ -1,6 +1,6 @@
-import { RecipeCard } from "../recipieCard/recipeCard";
-import { getAllRecipes } from "./getAllRecipies";
-import { Recipe } from "../recipie";
+import { RecipeCard } from "../recipeCard/recipeCard";
+import { getAllRecipes } from "./getAllRecipes";
+import { Recipe } from "../recipe";
 import { deleteRecipe } from "./deleteRecipe";
 
 export async function RecipeList({

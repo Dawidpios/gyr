@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@components/components/ui/card";
 import { Badge } from "@components/components/ui/badge";
-import { Recipe } from "@components/app/recipies/recipie";
+import { Recipe } from "@components/app/recipes/recipe";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
@@ -28,7 +28,7 @@ export function RecipeCard({
   const router = useRouter();
 
   const cardHandler = () => {
-    router.push(`/recipies/${recipe.id}`);
+    router.push(`/recipes/${recipe.id}`);
   };
 
   return (

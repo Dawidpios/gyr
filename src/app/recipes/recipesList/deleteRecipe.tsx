@@ -17,7 +17,7 @@ export const deleteRecipe = async (id: string, revalidatePath: string) => {
         });
         revalidate(revalidatePath);
       }
-    } else if (revalidatePath === "/recipies") {
+    } else if (revalidatePath === "/recipes") {
       await prisma.recipes.delete({ where: { id: id } });
       revalidate(revalidatePath);
     }

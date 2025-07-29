@@ -48,12 +48,12 @@ const SignIn = () => {
 
   return (
     <section className="w-full h-auto mt-10 flex flex-col">
-      <h2 className="text-center text-2xl text-white">
+      <h2 className="text-center text-2xl text-black">
         Sign in to your account
       </h2>
-      <h3 className="text-center text-lg text-white">
+      <h3 className="text-center text-lg text-black">
         Or sign up for a <b></b>
-        <Link className="text-lg text-green" href="/register">
+        <Link className="text-lg text-purple" href="/register">
           new account
         </Link>
       </h3>
@@ -62,7 +62,7 @@ const SignIn = () => {
         className="w-90 lg:w-1/3 self-center mt-8 space-y-6"
       >
         <input defaultValue="true" name="remember" type="hidden" />
-        <div className="-space-y-px rounded-md shadow-sm">
+        <div className="-space-y-px rounded-md ">
           <div>
             <label className="sr-only" htmlFor="email-address">
               Email address
@@ -103,13 +103,13 @@ const SignIn = () => {
           </div>
         </div>
         <button
-          className={`w-full self-center p-2 ${
-            isSubmitting ? "bg-gray" : "bg-green"
-          } text-white text-xl rounded-lg`}
+          className={`w-full self-center p-2 bg-black text-white text-xl rounded-lg cursor-pointer ${
+            isSubmitting ? "opacity-50 cursor-not-allowed bg-grey" : ""
+          }`}
           type="submit"
         >
           {isSubmitting
-            ? "Checking credencials..."
+            ? "Checking credentials..."
             : "Sign in with credentials"}
         </button>
         <button

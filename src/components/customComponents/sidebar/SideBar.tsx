@@ -39,8 +39,8 @@ export function AppSidebar() {
       icon: Refrigerator,
     },
     {
-      title: "Recipies",
-      url: "/recipies",
+      title: "recipes",
+      url: "/recipes",
       icon: CookingPot,
     },
     {

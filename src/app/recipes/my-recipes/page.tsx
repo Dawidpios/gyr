@@ -1,9 +1,9 @@
 import prisma from "@components/lib/prisma";
 import { getServerSession } from "next-auth";
 
-import { RecipeList } from "../recipiesList/recipieList";
+import { RecipeList } from "../recipesList/recipesList";
 import { authOptions } from "@lib/authOptions";
-import { Recipe } from "../recipie";
+import { Recipe } from "../recipe";
 
 const MyRecipes = async () => {
   const session = await getServerSession(authOptions);
@@ -19,7 +19,7 @@ const MyRecipes = async () => {
   return (
     <RecipeList
       recipesList={userRecipes as unknown as Recipe[]}
-      revalidatePath="recipies/my-recipes"
+      revalidatePath="/recipes/my-recipes"
       getAll={false}
     ></RecipeList>
   );

@@ -5,7 +5,7 @@ import Link from "next/link";
 const AddRecipieButton = () => {
   return (
     <Button asChild={true}>
-      <Link href="recipies/add-recipie">Add recipie</Link>
+      <Link href="recipes/add-recipie">Add recipie</Link>
     </Button>
   );
 };

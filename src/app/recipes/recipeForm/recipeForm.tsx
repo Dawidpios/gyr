@@ -107,7 +107,7 @@ export function RecipeForm() {
     });
     formData.append("authorId", session.data?.user.id || "");
     await addRecipe(formData);
-    revalidate("/recipies");
+    revalidate("/recipes");
     form.reset();
   }
   

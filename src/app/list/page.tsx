@@ -1,6 +1,6 @@
 import prisma from "@components/lib/prisma";
-import { RecipeList } from "../recipies/recipiesList/recipieList";
-import { Recipe } from "../recipies/recipie";
+import { RecipeList } from "../recipes/recipesList/recipesList";
+import { Recipe } from "../recipes/recipe";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@components/lib/authOptions";
 

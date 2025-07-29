@@ -1,4 +1,4 @@
-import { RecipeList } from "./recipiesList/recipieList";
+import { RecipeList } from "./recipesList/recipesList";
 import AddRecipieButton from "./add-recipie/AddRecipieButton";
 import Link from "next/link";
 
@@ -11,7 +11,7 @@ export default function RecipePage() {
       </div>
       <div className="flex flex-col sm:flex-row gap-2 justify-center">
         <div className="w-full">
-          <RecipeList revalidatePath="/recipies" />
+          <RecipeList revalidatePath="/recipes" />
         </div>
         {/* <div className="w-full sm:w-1/2">
           <h2 className="mb-4 text-xl font-semibold">Add New Recipe</h2>
@@ -19,7 +19,7 @@ export default function RecipePage() {
         {/* </div> */}
       </div>
       <Link
-        href="/recipies/my-recipes"
+        href="/recipes/my-recipes"
         className="flex items-center gap-2 text-blue-500 hover:underline"
       >
         My Recipes

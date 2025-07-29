@@ -40,7 +40,7 @@ const Results = ({ filteredResults, filteredRecipes }: ResultItem) => {
           ))}
           {filteredRecipes.map((recipe) => (
             <Card key={recipe.id} className="hover:shadow-md transition-shadow">
-              <Link href={`/recipies/${recipe.id}`}>
+              <Link href={`/recipes/${recipe.id}`}>
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="space-y-2">
