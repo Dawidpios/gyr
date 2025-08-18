@@ -60,13 +60,13 @@ const Register = () => {
     <section className="w-full flex min-h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-4">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-white">
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-black">
             Create a new account
           </h2>
-          <p className="mt-2 text-center text-sm text-white">
+          <p className="mt-2 text-center text-sm text-black">
             Already have an account? <b />
             <Link
-              className="font-medium text-green hover:text-indigo-500  dark:hover:text-violet"
+              className="font-medium text-green hover:text-green/70"
               href="/login"
             >
               Sign in
@@ -75,7 +75,7 @@ const Register = () => {
         </div>
         <form onSubmit={handleSubmit(submitHandler)} className="mt-8 space-y-6">
           <input defaultValue="true" name="remember" type="hidden" />
-          <div className="-space-y-px rounded-md shadow-sm">
+          <div className="-space-y-px rounded-md ">
             <div>
               <label className="sr-only" htmlFor="name">
                 Name
@@ -83,7 +83,7 @@ const Register = () => {
               <input
                 {...register("name")}
                 autoComplete="name"
-                className="relative block w-full rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-green focus:outline-none focus:ring-green mt-2"
+                className="relative block w-full rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-purple focus:outline-none focus:ring-green mt-2"
                 id="name"
                 name="name"
                 placeholder="Name"
@@ -101,7 +101,7 @@ const Register = () => {
               <input
                 {...register("email")}
                 autoComplete="email"
-                className="relative block w-full rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-green focus:outline-none focus:ring-green mt-2"
+                className="relative block w-full rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-purple focus:outline-none focus:ring-green mt-2"
                 id="email-address"
                 name="email"
                 placeholder="Email address"
@@ -119,7 +119,7 @@ const Register = () => {
               <input
                 {...register("password")}
                 autoComplete="new-password"
-                className="relative block w-full rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-green focus:outline-none focus:ring-green mt-2"
+                className="relative block w-full rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-purple focus:outline-none focus:ring-green mt-2"
                 id="password"
                 name="password"
                 placeholder="Password"
@@ -136,7 +136,11 @@ const Register = () => {
           <div>
             <button
               className={`group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm text-white font-bold
-    ${isSubmitting ? "bg-purple-300" : "bg-purple-500 hover:bg-purple-600"}
+    ${
+      isSubmitting
+        ? "bg-black/60"
+        : "bg-black hover:bg-black/80 hover: cursor-pointer"
+    }
   `}
               type="submit"
               disabled={isSubmitting}

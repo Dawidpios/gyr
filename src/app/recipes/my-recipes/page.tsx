@@ -17,11 +17,14 @@ const MyRecipes = async () => {
   });
 
   return (
-    <RecipeList
-      recipesList={userRecipes as unknown as Recipe[]}
-      revalidatePath="/recipes/my-recipes"
-      getAll={false}
-    ></RecipeList>
+    <div className="container mx-auto py-6">
+      <RecipeList
+        recipesList={userRecipes as unknown as Recipe[]}
+        revalidatePath="/recipes/my-recipes"
+        getAll={false}
+      ></RecipeList>
+    </div>
+    
   );
 };
 

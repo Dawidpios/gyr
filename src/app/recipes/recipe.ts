@@ -8,7 +8,7 @@ export type Recipe = {
   id: string
   title: string
   ingredients: Ingredient[]
-  desc: string
+  desc: string | null
   time: number
   portion: number
   image?: string

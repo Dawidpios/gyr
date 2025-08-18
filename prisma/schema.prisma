@@ -40,7 +40,7 @@ model Recipes {
   time        Decimal  @db.Decimal
   portion     Decimal  @db.Decimal
   ingredients Json     @db.Json
-  desc        String
+  desc        String?
   image       String
   authorId    String?
   listId      String?

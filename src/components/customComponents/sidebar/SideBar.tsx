@@ -39,7 +39,7 @@ export function AppSidebar() {
       icon: Refrigerator,
     },
     {
-      title: "recipes",
+      title: "Recipes",
       url: "/recipes",
       icon: CookingPot,
     },

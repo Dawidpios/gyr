@@ -20,12 +20,12 @@ import addRecipe from "./add-recipe";
 import { useState } from "react";
 import revalidate from "@lib/revalidate";
 import { useSession } from "next-auth/react";
-
+import toast, { Toaster } from "react-hot-toast";
 
 const ingredientSchema = z.object({
-  name: z.string().min(1, "Nazwa składnika jest wymagana"),
-  amount: z.coerce.number().min(0.1, "Ilość musi być większa niż 0"),
-  unit: z.string().min(1, "Jednostka jest wymagana"),
+  name: z.string().min(1, "Ingredient name is required"),
+  amount: z.coerce.number().min(0.1, "Amount must be greater than 0"),
+  unit: z.string().min(1, "Unit is required"),
 });
 
 const formSchema = z.object({
@@ -35,9 +35,7 @@ const formSchema = z.object({
   ingredients: z.array(ingredientSchema).min(1, {
     message: "Please add at least one ingredient.",
   }),
-  desc: z.string().min(10, {
-    message: "Instructions must be at least 10 characters.",
-  }),
+  desc: z.string().optional(),
   time: z.coerce.number().min(1, {
     message: "Cooking time must be at least 1 minute.",
   }),
@@ -47,17 +45,16 @@ const formSchema = z.object({
   image: z.string().optional(),
 });
 
-const UNITS = ["g", "ml", "szt", "łyżka", "łyżeczka", "szklanka"];
+const UNITS = ["g", "ml", "pcs", "tablespoon", "teaspoon", "cup"];
 
 export function RecipeForm() {
-  const session = useSession()
+  const session = useSession();
 
   const [newIngredient, setNewIngredient] = useState({
     name: "",
     amount: "",
     unit: "",
   });
-  // const fileRef = useRef<null | HTMLInputElement>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -97,12 +94,19 @@ export function RecipeForm() {
   };
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    if(session.status !== "authenticated") return
+    if (session.status !== "authenticated") {
+      toast.error("You must be logged in to add a recipe.");
+      return;
+    }
 
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
       if (value !== undefined) {
-        formData.append(key, JSON.stringify(value));
+        if (typeof value === "object") {
+          formData.append(key, JSON.stringify(value));
+        } else {
+          formData.append(key, String(value));
+        }
       }
     });
     formData.append("authorId", session.data?.user.id || "");
@@ -110,188 +114,171 @@ export function RecipeForm() {
     revalidate("/recipes");
     form.reset();
   }
-  
-  // const setImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const url = await addImage(e)
-  //   form.setValue("image", url as string);
-  // };
 
   return (
-    <Card className="m-2 w-3/4 justify-center">
-      <CardContent className="m-2">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Recipe Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Spaghetti Carbonara" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="ingredients"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ingredients</FormLabel>
-                  <div className="space-y-4">
-                    <div className="flex gap-2">
-                      <Input
-                        placeholder="Nazwa składnika"
-                        value={newIngredient.name}
-                        onChange={(e) =>
-                          setNewIngredient({
-                            ...newIngredient,
-                            name: e.target.value,
-                          })
-                        }
-                      />
-                      <Input
-                        type="number"
-                        placeholder="Ilość"
-                        value={newIngredient.amount}
-                        onChange={(e) =>
-                          setNewIngredient({
-                            ...newIngredient,
-                            amount: e.target.value,
-                          })
-                        }
-                        className="w-24"
-                      />
-                      <select
-                        value={newIngredient.unit}
-                        onChange={(e) =>
-                          setNewIngredient({
-                            ...newIngredient,
-                            unit: e.target.value,
-                          })
-                        }
-                        className="w-32 rounded-md border border-input bg-background px-3 py-2"
-                      >
-                        <option value="">Wybierz jednostkę</option>
-                        {UNITS.map((unit) => (
-                          <option key={unit} value={unit}>
-                            {unit}
-                          </option>
-                        ))}
-                      </select>
-                      <Button type="button" onClick={addIngredient}>
-                        <Plus className="h-4 w-4" />
-                      </Button>
-                    </div>
-
-                    <div className="space-y-2">
-                      {field.value?.map((ingredient, index) => (
-                        <div key={index} className="flex items-center gap-2">
-                          <span className="flex-1">
-                            {ingredient.amount} {ingredient.unit}{" "}
-                            {ingredient.name}
-                          </span>
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => removeIngredient(index)}
-                          >
-                            <X className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <FormDescription>
-                    Dodaj składniki z ilością i jednostką.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="desc"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Instructions</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Cook pasta. Fry pancetta. Mix eggs and cheese. Combine all ingredients."
-                      className="min-h-[100px]"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="grid grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="time"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Cooking Time (minutes)</FormLabel>
-                    <FormControl>
-                      <Input type="number" min={1} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="portion"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Servings</FormLabel>
-                    <FormControl>
-                      <Input type="number" min={1} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            {/* <div style={{ display: "none" }} className="grid grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="image"
-                render={() => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        style={{ display: "none" }}
-                        type="file"
-                        ref={fileRef}
-                        onChange={setImage}
-                        value={undefined}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div> */}
-            {/* <Button
-              type="button"
-              className="w-1/4"
-              onClick={() => fileRef.current && fileRef.current.click()}
+    <>
+      <Card className="border-none shadow-none w-full justify-center">
+        <CardContent className="">
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-3/4 space-y-8"
             >
-              Add image
-            </Button> */}
-            <Button type="submit" className="w-full">
-              <PlusCircle className="mr-2 h-4 w-4" />
-              Add Recipe
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Recipe Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Spaghetti Carbonara" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="ingredients"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col ">
+                    <FormLabel>Ingredients</FormLabel>
+                    <div className="space-y-4">
+                      <div className="flex gap-2">
+                        <Input
+                          className="flex-1"
+                          placeholder="Ingredient name"
+                          value={newIngredient.name}
+                          onChange={(e) =>
+                            setNewIngredient({
+                              ...newIngredient,
+                              name: e.target.value,
+                            })
+                          }
+                        />
+                        <Input
+                          className="w-24"
+                          type="number"
+                          placeholder="Amount"
+                          value={newIngredient.amount}
+                          onChange={(e) =>
+                            setNewIngredient({
+                              ...newIngredient,
+                              amount: e.target.value,
+                            })
+                          }
+                        />
+                        <select
+                          className="w-fit rounded-md border border-input bg-background px-3 py-2"
+                          value={newIngredient.unit}
+                          onChange={(e) =>
+                            setNewIngredient({
+                              ...newIngredient,
+                              unit: e.target.value,
+                            })
+                          }
+                        >
+                          <option value="">Unit of measurement</option>
+                          {UNITS.map((unit) => (
+                            <option key={unit} value={unit}>
+                              {unit}
+                            </option>
+                          ))}
+                        </select>
+                        <Button
+                          className="hover:cursor-pointer hover:bg-black/80"
+                          type="button"
+                          onClick={addIngredient}
+                        >
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                      </div>
+
+                      <div className="space-y-2">
+                        {field.value?.map((ingredient, index) => (
+                          <div key={index} className="flex items-center gap-2">
+                            <span className="flex-1">
+                              {ingredient.amount} {ingredient.unit}{" "}
+                              {ingredient.name}
+                            </span>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              className="hover:cursor-pointer"
+                              onClick={() => removeIngredient(index)}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <FormDescription>
+                      Add ingredients with amount and unit.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="desc"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Instructions</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Cook pasta. Fry pancetta. Mix eggs and cheese. Combine all ingredients."
+                        className="min-h-[100px]"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="time"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Cooking Time (minutes)</FormLabel>
+                      <FormControl>
+                        <Input type="number" min={1} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="portion"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Servings</FormLabel>
+                      <FormControl>
+                        <Input type="number" min={1} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <Button
+                type="submit"
+                className="w-full hover:bg-black/90 hover:cursor-pointer"
+              >
+                <PlusCircle className="mr-2 h-4 w-4" />
+                Add Recipe
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+      <Toaster position="top-center" />
+    </>
   );
 }
 

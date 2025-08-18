@@ -1,6 +1,9 @@
 import { Button } from "@components/components/ui/button";
+import Link from "next/link";
+import GoToDescriptionBtn from "./GoToDescriptionButton";
 
 const Hero = () => {
+
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-[url('/placeholder.svg?height=800&width=1600')] bg-cover bg-center">
       <div className="container px-4 md:px-6">
@@ -14,15 +17,15 @@ const Hero = () => {
               our all-in-one platform.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button
-                className="bg-black hover:bg-black/80 cursor-pointer"
-                size="lg"
-              >
-                Browse Recipes
-              </Button>
-              <Button className="cursor-pointer" size="lg" variant="outline">
-                Get Started
-              </Button>
+              <Link href="/recipes" className="cursor-pointer">
+                <Button
+                  className="bg-black hover:bg-black/80 cursor-pointer"
+                  size="lg"
+                >
+                  Browse Recipes
+                </Button>
+              </Link>
+              <GoToDescriptionBtn />
             </div>
           </div>
         </div>

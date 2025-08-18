@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, Trash, Users, BookOpenText } from "lucide-react";
+import { Clock, Trash, Users, BadgeInfo } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -30,9 +30,9 @@ export function RecipeCard({
   const cardHandler = () => {
     router.push(`/recipes/${recipe.id}`);
   };
-
+  console.log(recipe);
   return (
-    <Card className="flex flex-col w-80">
+    <Card className="flex flex-col w-80 border-purple shadow-md hover:shadow-lg transition-shadow duration-300">
       <CardHeader className="flex flex-row items-start gap-4 space-y-0">
         <div className="space-y-1">
           <CardTitle>{recipe.title}</CardTitle>
@@ -58,19 +58,24 @@ export function RecipeCard({
               ))}
             </ul>
           </div>
-          <div>
-            <h4 className="font-medium">Instructions:</h4>
-            <p className="text-sm text-muted-foreground">{recipe.desc}</p>
-          </div>
+          {recipe.desc !== "" && (
+            <div>
+              <h4 className="font-medium">Instructions:</h4>
+              <p className="text-sm text-muted-foreground">{recipe.desc}</p>
+            </div>
+          )}
         </div>
-        <div className="flex justify-center mt-4 gap-3">
+        <div className="flex justify-start mt-4 gap-3">
           {recipe.authorId === userId && (
             <Trash
               className="cursor-pointer"
               onClick={() => deleteRecipe(recipe.id, revalidatePath)}
             />
           )}
-          <BookOpenText onClick={cardHandler} />
+          <BadgeInfo
+            className="cursor-pointer text-black  w-8 h-8 rounded-full hover:text-black/80"
+            onClick={cardHandler}
+          />
         </div>
       </CardContent>
     </Card>
