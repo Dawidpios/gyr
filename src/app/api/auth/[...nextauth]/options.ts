@@ -32,14 +32,18 @@ export const options: NextAuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "jsmith@example.com" },
+        email: {
+          label: "Email",
+          type: "text",
+          placeholder: "jsmith@example.com",
+        },
         password: { label: "Password", type: "password" },
       },
 
       async authorize(credentials) {
         if (!credentials) return null;
         const { email, password } = credentials;
-        const userAuth = await fetch(`/api/login`, {
+        const userAuth = await fetch(`${process.env.NEXTAUTH_URL}/api/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
