@@ -88,7 +88,7 @@ export function RecipeForm() {
     });
     formData.append("authorId", session.data?.user.id || "");
     await addRecipe(formData);
-    revalidate("/recipes");
+    revalidate(["/recipes", "/search"]);
     form.reset();
     setTimeCooking("");
     setPortion("");

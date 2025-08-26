@@ -1,8 +1,14 @@
-'use server'
-import { revalidatePath } from "next/cache"
+"use server";
+import { revalidatePath } from "next/cache";
 
-const revalidate = async (url: string) => {
-  revalidatePath(url)
-}
+const revalidate = async (url: string | string[]) => {
+  if (Array.isArray(url)) {
+    for (const path of url) {
+      revalidatePath(path);
+    }
+  } else {
+    revalidatePath(url);
+  }
+};
 
-export default revalidate
+export default revalidate;

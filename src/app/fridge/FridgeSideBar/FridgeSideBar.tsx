@@ -75,7 +75,7 @@ export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
         quantity: 1,
         category: ""
       });
-      revalidate("/fridge");
+      revalidate(["/fridge", "/search"]);
     } catch (error) {
       console.error("Failed to add product:", error);
     }
