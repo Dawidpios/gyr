@@ -12,5 +12,6 @@ export default async function Page() {
       ? recipe.ingredients as string[]
       : [],
   }));
+  console.log(ingredients, recipes);
   return <Search ingredients={ingredients} recipes={recipes} />;
 }
