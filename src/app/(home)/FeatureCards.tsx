@@ -40,7 +40,7 @@ const cards = [
     description:
       " Plan your meals for the week with our intuitive calendar. Save favorites, track nutrition, and reduce food waste with smart planning.",
     buttonText: "Create Your shopping List",
-    href:"/list"
+    href: "/list",
   },
 ];
 const FeatureCards = () => {
@@ -51,7 +51,7 @@ const FeatureCards = () => {
           {cards.map((card) => (
             <Card
               key={card.title}
-              className="flex flex-col border-purple h-full"
+              className="w-80 flex flex-col border-purple h-full md:w-full"
             >
               <CardHeader className="flex flex-row items-center gap-4">
                 <div className="bg-purple/50 p-2 rounded-full">
@@ -79,7 +79,7 @@ const FeatureCards = () => {
                   >
                     {card.buttonText}
                   </Button>
-              </Link>
+                </Link>
               </CardFooter>
             </Card>
           ))}

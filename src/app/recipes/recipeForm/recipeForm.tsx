@@ -104,14 +104,14 @@ export function RecipeForm() {
 
   return (
     <>
-      <Card className="border-none shadow-none w-full justify-center">
-        <CardContent className="">
+      <Card className="border-none shadow-none w-full justify-center pl-8 pr-8">
+        <CardContent className="p-0">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full space-y-8 flex gap-6"
+              className="w-full space-y-8 flex gap-6 flex-col md:flex-col items-start"
             >
-              <div className="w-3/4 space-y-6">
+              <div className="w-full md:w-3/4 space-y-6">
                 <FormField
                   control={form.control}
                   name="title"
@@ -129,12 +129,12 @@ export function RecipeForm() {
                   control={form.control}
                   name="ingredients"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col ">
+                    <FormItem className="flex flex-col w-full">
                       <FormLabel>Ingredients</FormLabel>
                       <div className="space-y-4">
-                        <div className="flex gap-2">
+                        <div className="flex flex-col gap-2 sm:flex-row sm:items-end">
                           <Input
-                            className="flex-1"
+                            className="w-full sm:max-w-xs"
                             placeholder="Ingredient name"
                             value={newIngredient.name}
                             onChange={(e) =>
@@ -145,7 +145,7 @@ export function RecipeForm() {
                             }
                           />
                           <Input
-                            className="w-24"
+                            className="w-full sm:max-w-[100px]"
                             type="number"
                             placeholder="Amount"
                             value={newIngredient.amount}
@@ -157,7 +157,7 @@ export function RecipeForm() {
                             }
                           />
                           <select
-                            className="w-fit rounded-md border border-input bg-background px-3 py-2"
+                            className="w-full sm:max-w-[140px] rounded-md border border-input bg-background px-3 py-2"
                             value={newIngredient.unit}
                             onChange={(e) =>
                               setNewIngredient({
@@ -174,7 +174,7 @@ export function RecipeForm() {
                             ))}
                           </select>
                           <Button
-                            className="hover:cursor-pointer hover:bg-black/80"
+                            className="w-full sm:w-auto"
                             type="button"
                             onClick={addIngredient}
                           >
@@ -278,7 +278,7 @@ export function RecipeForm() {
               </div>
               <Button
                 type="submit"
-                className="w-1/4 mt-4 hover:bg-black/90 hover:cursor-pointer"
+                className="w-full md:w-1/4 hover:bg-black/90 hover:cursor-pointer self-center md:self-start"
               >
                 <PlusCircle className="mr-2 h-4 w-4" />
                 Add Recipe
