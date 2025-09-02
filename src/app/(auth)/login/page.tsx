@@ -6,7 +6,7 @@ import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast, { Toaster } from "react-hot-toast";
-// import { FaGithub } from "react-icons/fa";
+
 
 const schema = z.object({
   email: z.string().email(),

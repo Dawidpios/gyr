@@ -1,6 +1,6 @@
 "use client";
 
-import {  Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Button } from "@components/components/ui/button";
 
 import {
@@ -31,6 +31,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import revalidate from "@components/lib/revalidate";
+import toast, { Toaster } from "react-hot-toast";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -48,7 +49,7 @@ type ProductFormValues = z.infer<typeof formSchema>;
 
 type ProductSidebarProps = {
   categories: { value: string; label: string }[];
-  id: string
+  id: string;
 };
 
 export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
@@ -60,6 +61,7 @@ export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
       category: "",
     },
   });
+  const { handleSubmit, formState, control, reset } = form;
 
   async function onSubmit(values: ProductFormValues) {
     try {
@@ -68,30 +70,32 @@ export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({values, fridgeId: id}),
+        body: JSON.stringify({ values, fridgeId: id }),
       });
-      form.reset({
+      reset({
         name: "",
         quantity: 1,
-        category: ""
+        category: "",
       });
       revalidate(["/fridge", "/search"]);
+      toast.success("Product added successfully!");
     } catch (error) {
       console.error("Failed to add product:", error);
+      toast.error("Failed to add product.");
     }
   }
 
   return (
-    <Sidebar side="right">
+    <Sidebar id="fridgeBar" side="right">
       <SidebarHeader className="border-b p-4">
         <h2 className="text-lg font-semibold">Add Product</h2>
       </SidebarHeader>
       <SidebarContent>
         <div className="p-4">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <FormField
-                control={form.control}
+                control={control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
@@ -105,7 +109,7 @@ export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
               />
 
               <FormField
-                control={form.control}
+                control={control}
                 name="quantity"
                 render={({ field }) => (
                   <FormItem>
@@ -119,7 +123,7 @@ export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
               />
 
               <FormField
-                control={form.control}
+                control={control}
                 name="category"
                 render={({ field }) => (
                   <FormItem>
@@ -149,15 +153,22 @@ export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
                 )}
               />
 
-              <Button type="submit" className="w-full">
+              <Button
+                type="submit"
+                className={`w-full hover:bg-black/80 hover:cursor-pointer ${
+                  formState.isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                disabled={formState.isSubmitting}
+              >
                 <Plus className="mr-2 h-4 w-4" />
-                Add to Fridge
+                {formState.isSubmitting ? "Adding..." : "Add Product"}
               </Button>
             </form>
           </Form>
         </div>
       </SidebarContent>
       <SidebarRail />
+      <Toaster />
     </Sidebar>
   );
 }

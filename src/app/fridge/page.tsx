@@ -15,6 +15,7 @@ import { updateItemQuantity, deleteItem } from "./controlPanel/fridgeHelpers";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@components/lib/authOptions";
 import { notFound } from "next/navigation";
+import AddItemButton from "./FridgeSideBar/AddItemButton";
 
 // Define product type
 type Product = {
@@ -42,6 +43,7 @@ export default async function FridgePage() {
   if (!session?.user) {
     notFound();
   }
+  console.log("HALOOOOOO", session.user.id);
   const getFridgeItems = async () => {
     return await prisma.fridgeItem.findMany({
       where: {
@@ -64,17 +66,19 @@ export default async function FridgePage() {
   };
   const fridge = await getFridge();
   const products = await getFridgeItems();
-
+  
   return (
     <SidebarProvider>
       <SidebarInset>
         <div className="container mx-auto p-4">
-          <h1 className="mb-6 text-3xl font-bold">My Fridge</h1>
-
+          <div className="flex items-center justify-between">
+            <h1 className="mb-6 text-3xl font-bold">My Fridge</h1>
+            <AddItemButton />
+          </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {!products ||
               (products.length === 0 && (
-                <div className="text-muted-foreground">
+                <div className="w-100">
                   Your fridge is empty. Add your first item!
                 </div>
               ))}
@@ -103,7 +107,6 @@ export default async function FridgePage() {
           </div>
         </div>
       </SidebarInset>
-
       <FridgeSideBar categories={categories} id={fridge?.id || ""} />
     </SidebarProvider>
   );
