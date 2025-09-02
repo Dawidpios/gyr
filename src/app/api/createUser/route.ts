@@ -24,15 +24,17 @@ export async function POST(req: NextRequest) {
     );
   }
   const hashedPassword = await hashPassword(password);
-  await prisma.user.create({
-    data: { name, password: hashedPassword, email },
-  });
-  await prisma.fridge.create({
-    data: { name: "My Fridge", user: { connect: { email } } },
-  });
-  await prisma.list.create({
-    data: { name: "My Shopping List", user: { connect: { email } } },
-  });
+  await prisma.$transaction([
+    prisma.user.create({
+      data: { name, password: hashedPassword, email },
+    }),
+    prisma.fridge.create({
+      data: { name: "My Fridge", user: { connect: { email } } },
+    }),
+    prisma.list.create({
+      data: { name: "My Shopping List", user: { connect: { email } } },
+    }),
+  ]);
   return NextResponse.json(
     { message: "User has been created" },
     { status: 200 }
