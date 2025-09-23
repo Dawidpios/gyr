@@ -9,7 +9,7 @@ export default async function Page() {
   const recipes = recipesRaw.map((recipe) => ({
     ...recipe,
     ingredients: Array.isArray(recipe.ingredients)
-      ? recipe.ingredients as string[]
+      ? (recipe.ingredients as { name: string }[]).map((ingredient) => ingredient.name)
       : [],
   }));
   return <Search ingredients={ingredients} recipes={recipes} />;

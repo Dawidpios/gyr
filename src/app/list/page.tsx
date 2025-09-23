@@ -1,8 +1,8 @@
 import prisma from "@components/lib/prisma";
-import { RecipeList } from "../recipes/recipesList/recipesList";
-import { Recipe } from "../recipes/recipe";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@components/lib/authOptions";
+import IngredientsPage from "./IngredientsPage";
+import { Ingredients } from "./ingredients";
 
 const ListPage = async () => {
   const session = await getServerSession(authOptions);
@@ -11,20 +11,17 @@ const ListPage = async () => {
     return <div>Please log in to view your shopping list.</div>;
   }
 
-  const list = await prisma.list.findFirst({
+  const list = await prisma.list.findUnique({
     where: { userId: session.user.id as string },
     include: {
-      recipes: true,
+      ingredients: true,
     },
   });
+  const ingredients = list?.ingredients || [];
 
   return (
     <div className="flex flex-col flex-wrap w-full gap-4 m-5">
-      <RecipeList
-        recipesList={list?.recipes as unknown as Recipe[]}
-        revalidatePath="/list"
-        getAll={false}
-      />
+      <IngredientsPage ingredients={ingredients as unknown as Ingredients[]} />
     </div>
   );
 };

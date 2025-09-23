@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, Trash, Users, BadgeInfo } from "lucide-react";
+import { Clock, Users } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -11,6 +11,9 @@ import { Badge } from "@components/components/ui/badge";
 import { Recipe } from "@components/app/recipes/recipe";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
+import AddToListButton from "../[id]/AddToListButton";
+import { Button } from "@components/components/ui/button";
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -26,13 +29,15 @@ export function RecipeCard({
   const { data: session } = useSession();
   const userId = session?.user?.id;
   const router = useRouter();
+  const pathname = usePathname();
 
   const cardHandler = () => {
     router.push(`/recipes/${recipe.id}`);
   };
-  console.log(recipe);
+  console.log(pathname);
+
   return (
-    <Card className="flex flex-col w-80 border-purple shadow-md hover:shadow-lg transition-shadow duration-300">
+    <Card className="relative flex flex-col w-80 border-purple shadow-md hover:shadow-lg transition-shadow duration-300">
       <CardHeader className="flex flex-row items-start gap-4 space-y-0">
         <div className="space-y-1">
           <CardTitle>{recipe.title}</CardTitle>
@@ -53,9 +58,12 @@ export function RecipeCard({
           <div>
             <h4 className="font-medium">Ingredients:</h4>
             <ul className="ml-5 list-disc text-sm">
-              {recipe.ingredients.map((desc, index) => (
+              {recipe.ingredients.slice(0, 3).map((desc, index) => (
                 <li key={index}>{desc.name}</li>
               ))}
+              {recipe.ingredients.length > 3 && (
+                <li className="italic text-muted-foreground">...and more</li>
+              )}
             </ul>
           </div>
           {recipe.desc !== "" && (
@@ -65,18 +73,23 @@ export function RecipeCard({
             </div>
           )}
         </div>
-        <div className="flex justify-start mt-4 gap-3">
-          {recipe.authorId === userId && (
-            <Trash
-              className="cursor-pointer"
-              onClick={() => deleteRecipe(recipe.id, revalidatePath)}
-            />
-          )}
-          <BadgeInfo
-            className="cursor-pointer text-black  w-8 h-8 rounded-full hover:text-black/80"
+        <div className="w-full flex justify-between align-middle mt-4 gap-2">
+          <Button
+            className="cursor-pointer text-white hover:bg-black/80  hover:text-white"
             onClick={cardHandler}
-          />
+          >
+            Details
+          </Button>
+          <AddToListButton recipeId={recipe.id} />
         </div>
+        {(recipe.authorId === userId || pathname.includes("/list")) && (
+          <Button
+            className="absolute w-1/4 right-5 top-5 cursor-pointer text-white hover:bg-black/80  hover:text-white"
+            onClick={() => deleteRecipe(recipe.id, revalidatePath)}
+          >
+            Delete
+          </Button>
+        )}
       </CardContent>
     </Card>
   );

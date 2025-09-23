@@ -10,8 +10,11 @@ export default async function RecipePage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const recipe = await prisma.recipes.findUnique({ where: { id: id } });
-  const ingredients = recipe?.ingredients as unknown as Ingredient[];
+  const recipe = await prisma.recipes.findUnique({
+    where: { id: id },
+    include: { ingredients: true },
+  });
+  const ingredients = recipe?.ingredients as Ingredient[];
 
   return (
     <div className="container mx-auto px-4 py-8">

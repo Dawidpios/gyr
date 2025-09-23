@@ -1,6 +1,5 @@
 "use server";
 import prisma from "@lib/prisma";
-import { Prisma } from "@prisma/client";
 
 interface Ingredient {
   name: string;
@@ -30,7 +29,13 @@ const addRecipe = async (formData: FormData) => {
         time,
         portion,
         desc,
-        ingredients: ingredients as unknown as Prisma.InputJsonValue,
+        ingredients: {
+          create: ingredients.map((ingredient) => ({
+            name: ingredient.name,
+            amount: ingredient.amount,
+            unit: ingredient.unit,
+          })),
+        },
         image,
         authorId,
       },

@@ -8,7 +8,6 @@ import ResultsHeader from "./Results-Header";
 import ActiveFilters from "./ActiveFilters";
 import Results from "./Results";
 
-// Sample data for demonstration
 
 type Ingredient = {
   id: string | number;

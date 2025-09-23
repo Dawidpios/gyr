@@ -24,7 +24,6 @@ const MyRecipes = async () => {
         getAll={false}
       ></RecipeList>
     </div>
-    
   );
 };
 

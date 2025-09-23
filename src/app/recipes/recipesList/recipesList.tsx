@@ -14,7 +14,7 @@ export async function RecipeList({
 }) {
   try {
     const recipes = !getAll ? recipesList : await getAllRecipes();
-
+    
     if (!recipes || recipes.length === 0) {
       return (
         <div className="text-muted-foreground">
@@ -32,10 +32,7 @@ export async function RecipeList({
               ...recipe,
               time: Number(recipe.time),
               portion: Number(recipe.portion),
-              ingredients:
-                typeof recipe.ingredients === "string"
-                  ? JSON.parse(recipe.ingredients)
-                  : recipe.ingredients,
+              ingredients: "ingredients" in recipe ? (recipe.ingredients as Recipe["ingredients"]) : [],
               authorId: recipe.authorId || null,
             }}
             revalidatePath={revalidatePath}

@@ -7,8 +7,8 @@ import { useSession } from "next-auth/react";
 export default function AddToListButton({ recipeId }: { recipeId: string }) {
   const { data: session } = useSession();
 
-  if( !session?.user) {
-    return null; 
+  if (!session?.user) {
+    return null;
   }
   const addToList = async () => {
     const response = await fetch("/api/shopping-list", {
@@ -18,7 +18,7 @@ export default function AddToListButton({ recipeId }: { recipeId: string }) {
         "Content-Type": "application/json",
       },
     });
-    revalidate("/list");
+    revalidate(["/list"]);
     if (!response.ok) {
       console.error("Failed to add to shopping list");
     }

@@ -17,7 +17,6 @@ import { authOptions } from "@components/lib/authOptions";
 import { notFound } from "next/navigation";
 import AddItemButton from "./FridgeSideBar/AddItemButton";
 
-// Define product type
 type Product = {
   id: string;
   name: string;
@@ -25,7 +24,6 @@ type Product = {
   category: string;
 };
 
-// Categories with emoji icons
 const categories = [
   { value: "dairy", label: "Dairy 🥛" },
   { value: "fruits", label: "Fruits 🍎" },

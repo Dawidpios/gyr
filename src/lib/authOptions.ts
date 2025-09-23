@@ -3,7 +3,6 @@ import GitHubProvider from "next-auth/providers/github";
 import { GithubProfile } from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-// Extend the Session type to include 'id' on user
 declare module "next-auth" {
   interface Session {
     user: {

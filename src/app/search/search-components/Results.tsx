@@ -5,7 +5,7 @@ import Link from "next/link";
 type PickedRecipe = {
   id: string;
   title: string;
-  ingredients: string[]; // lub odpowiedni typ, jeśli to obiekt
+  ingredients: string[];
 };
 type Ingredient = {
   id: string | number;

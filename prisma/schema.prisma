@@ -34,30 +34,29 @@ model Post {
 }
 
 model Recipes {
-  id          String   @id @default(cuid())
-  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  id          String       @id @default(cuid())
+  created_at  DateTime     @default(now()) @db.Timestamptz(6)
   title       String
-  time        Decimal  @db.Decimal
-  portion     Decimal  @db.Decimal
-  ingredients Json     @db.Json
+  time        Decimal      @db.Decimal
+  portion     Decimal      @db.Decimal
   desc        String?
   image       String
   authorId    String?
   listId      String?
-  author      User?    @relation("UserMyRecipes", fields: [authorId], references: [id])
-  list        List?    @relation(fields: [listId], references: [id])
-  users       User[]   @relation("UserRecipes")
+  ingredients Ingredient[]
+  author      User?        @relation("UserMyRecipes", fields: [authorId], references: [id])
+  users       User[]       @relation("UserRecipes")
 
   @@map("recipes")
 }
 
 model List {
-  id         String    @id @default(cuid())
-  created_at DateTime  @default(now()) @db.Timestamptz(6)
-  name       String
-  userId     String    @unique
-  user       User      @relation("UserList", fields: [userId], references: [id])
-  recipes    Recipes[]
+  id          String       @id @default(cuid())
+  created_at  DateTime     @default(now()) @db.Timestamptz(6)
+  name        String
+  userId      String       @unique
+  user        User         @relation("UserList", fields: [userId], references: [id])
+  ingredients Ingredient[]
 
   @@map("list")
 }
@@ -85,4 +84,15 @@ model FridgeItem {
 
   @@unique([name, fridgeId])
   @@map("fridgeItem")
+}
+
+model Ingredient {
+  id       String  @id @default(cuid())
+  name     String
+  amount   Float?
+  unit     String?
+  recipeId String
+  recipe   Recipes @relation(fields: [recipeId], references: [id])
+  list     List?   @relation(fields: [listId], references: [id])
+  listId   String?
 }
