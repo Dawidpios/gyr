@@ -4,7 +4,6 @@ import { Button } from "@components/components/ui/button";
 import { Trash2 } from "lucide-react";
 
 const DeleteIngredientButton = ({ id }: { id: string | number }) => {
-  
   return (
     <Button
       variant="ghost"

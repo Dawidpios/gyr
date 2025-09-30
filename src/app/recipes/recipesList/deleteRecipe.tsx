@@ -23,6 +23,7 @@ export const deleteRecipe = async (id: string, revalidatePath: string) => {
       revalidatePath === "/recipes" ||
       revalidatePath === "/recipes/my-recipes"
     ) {
+      await prisma.ingredient.deleteMany({ where: { recipeId: id } });
       await prisma.recipes.delete({ where: { id: id } });
       revalidate(["/recipes", "/recipes/my-recipes"]);
     }

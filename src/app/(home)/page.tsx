@@ -4,7 +4,7 @@ import FeatureCards from "./FeatureCards";
 
 export default async function Home() {
   return (
-    <div className="flex flex-col min-h-screen w-90 md:w-full">
+    <div className="flex flex-col min-h-screen w-full md:w-full">
       <Hero />
       <Description />
       <FeatureCards />
