@@ -4,7 +4,8 @@ import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
   const session = await getToken({
-    req: request
+    req: request,
+    secret: process.env.AUTH_SECRET,
   });
 
   console.log("Cookies:", request.cookies);
