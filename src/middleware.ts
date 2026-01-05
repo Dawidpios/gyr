@@ -10,6 +10,7 @@ export async function middleware(request: NextRequest) {
     });
     console.log("Session in middleware:", session);
     console.log("Cookies in middleware:", request.cookies.getAll());
+    console.log("NEXTAUTH_SECRET in middleware:", process.env.NEXTAUTH_SECRET);
     if (!session) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
