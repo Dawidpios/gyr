@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
       req: request,
       secret: process.env.NEXTAUTH_SECRET,
     });
-
+    console.log("Session in middleware:", session);
     if (!session) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
