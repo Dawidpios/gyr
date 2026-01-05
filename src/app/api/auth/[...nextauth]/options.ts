@@ -15,7 +15,7 @@ declare module "next-auth" {
 }
 
 export const options: NextAuthOptions = {
-  secret: process.env.AUTH_SECRET as string,
+  secret: process.env.NEXTAUTH_SECRET as string,
   session: {
     strategy: "jwt",
     maxAge: 60 * 60,
