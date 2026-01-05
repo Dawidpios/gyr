@@ -3,20 +3,21 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  const session = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
+  try {
+    const session = await getToken({
+      req: request,
+      secret: process.env.NEXTAUTH_SECRET,
+    });
 
-  console.log("Cookies:", request.cookies);
-  console.log("Session:", session);
+    if (!session) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
 
-  if (!session) {
-    console.log("Brak sesji, redirect na /login");
+    return NextResponse.next();
+  } catch (error) {
+    console.error("Middleware error:", error);
     return NextResponse.redirect(new URL("/login", request.url));
   }
-
-  return NextResponse.next();
 }
 
 export const config = {

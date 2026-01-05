@@ -1,12 +1,10 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast, { Toaster } from "react-hot-toast";
-
 
 const schema = z.object({
   email: z.string().email(),
@@ -16,7 +14,6 @@ const schema = z.object({
 type loginSchema = z.infer<typeof schema>;
 
 const SignIn = () => {
-  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -29,7 +26,8 @@ const SignIn = () => {
   const loginHandler: SubmitHandler<loginSchema> = async (data) => {
     const loginStatus = await signIn("credentials", {
       ...data,
-      redirect: false,
+      redirect: true,
+      callbackUrl: "/",
     });
     if (!loginStatus?.ok && loginStatus?.status === 401) {
       toast.error(`Login failed`);
@@ -37,9 +35,7 @@ const SignIn = () => {
     }
     reset();
     toast.success(`Login success!`);
-    setTimeout(() => {
-      router.push("/");
-    }, 500);
+    // Usunięto setTimeout i router.push, bo redirect: true robi to automatycznie
   };
 
   const githubLoginHandler = async () => {
