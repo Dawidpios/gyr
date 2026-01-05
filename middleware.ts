@@ -9,8 +9,10 @@ export async function middleware(request: NextRequest) {
   });
 
   console.log("Cookies:", request.cookies);
+  console.log("Session:", session);
 
   if (!session) {
+    console.log("Brak sesji, redirect na /login");
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
