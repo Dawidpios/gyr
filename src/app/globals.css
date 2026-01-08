@@ -12,6 +12,7 @@
   --color-green: oklch(0.765 0.144 157.6);
   --color-purple: oklch(0.765 0.061 282.2);
   --color-grey: oklch(0.422 0.045 236.6);
+  --color-yellow: oklch(91.8% 0.134 83.6);
 }
 
 :root {

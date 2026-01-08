@@ -3,12 +3,10 @@ import Link from "next/link";
 
 const MyRecipeBtn = () => {
   return (
-    <Link href="/recipes/my-recipes">
-      <Button className="cursor-pointer hover:bg-black/80">
-        My Recipes
-      </Button>
-    </Link>
+    <Button className="cursor-pointer border-1 text-neutral-800 bg-white hover:bg-yellow/20">
+      <Link href="/recipes/my-recipes">My Recipes</Link>
+    </Button>
   );
-}
- 
+};
+
 export default MyRecipeBtn;

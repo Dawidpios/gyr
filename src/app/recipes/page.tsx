@@ -4,10 +4,13 @@ import MyRecipeBtn from "./my-recipes/MyRecipeBtn";
 
 export default function RecipePage() {
   return (
-    <div className="container mx-auto py-6">
+    <div className="container mx-auto w-full p-6">
       <div className="w-full flex justify-between p-2 flex-col md:flex-row">
-        <h1 className="mb-6 text-3xl font-bold">Recipes</h1>
-        <div className="flex gap-2 mb-2">
+        <h1 className="mb-6 text-3xl font-bold">
+          Recipes{" "}
+          <p className="text-sm text-gray-500">Your personal cookbook</p>
+        </h1>
+        <div className="flex gap-2">
           <AddRecipieButton />
           <MyRecipeBtn />
         </div>

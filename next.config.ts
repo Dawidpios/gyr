@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["bronze-casual-earthworm-792.mypinata.cloud"],
     remotePatterns: [
       {
         protocol: "https",
@@ -20,7 +19,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "gyr-dun.vercel.app",
-      }
+      },
     ],
   },
 };
