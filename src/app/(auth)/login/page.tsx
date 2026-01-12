@@ -26,16 +26,16 @@ const SignIn = () => {
   const loginHandler: SubmitHandler<loginSchema> = async (data) => {
     const loginStatus = await signIn("credentials", {
       ...data,
-      redirect: true,
+      redirect: false,
       callbackUrl: "/",
     });
-    if (!loginStatus?.ok && loginStatus?.status === 401) {
-      toast.error(`Login failed`);
+    if (!loginStatus?.ok) {
+      toast.error("Login failed");
       return;
     }
     reset();
-    toast.success(`Login success!`);
-    // Usunięto setTimeout i router.push, bo redirect: true robi to automatycznie
+    toast.success("Login success!");
+    window.location.href = loginStatus.url || "/";
   };
 
   const githubLoginHandler = async () => {

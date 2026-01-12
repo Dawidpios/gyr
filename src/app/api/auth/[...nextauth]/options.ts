@@ -57,7 +57,7 @@ export const options: NextAuthOptions = {
         if (userAuth.status === 200 && user) {
           return user;
         }
-        throw new Error("Login failed");
+        return null;
       },
     }),
   ],
@@ -77,5 +77,5 @@ export const options: NextAuthOptions = {
       }
       return session;
     },
-  }
+  },
 };
