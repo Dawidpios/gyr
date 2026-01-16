@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast, { Toaster } from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 const schema = z.object({
   email: z.string().email(),
@@ -14,7 +15,7 @@ const schema = z.object({
 
 type loginSchema = z.infer<typeof schema>;
 
-const SignIn = () => {
+const SignInForm = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
 
@@ -121,6 +122,20 @@ const SignIn = () => {
       </form>
       <Toaster />
     </section>
+  );
+};
+
+const SignIn = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="w-full h-auto mt-10 flex justify-center">
+          Loading...
+        </div>
+      }
+    >
+      <SignInForm />
+    </Suspense>
   );
 };
 
