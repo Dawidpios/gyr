@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { Button } from "@components/components/ui/button";
 
 const GoToDescriptionBtn = () => {
@@ -9,10 +9,15 @@ const GoToDescriptionBtn = () => {
     }
   };
   return (
-    <Button onClick={goToDescription} className="cursor-pointer" size="lg" variant="outline">
+    <Button
+      onClick={goToDescription}
+      className="cursor-pointer font-bold"
+      size="lg"
+      variant="outline"
+    >
       Get Started
     </Button>
   );
-}
- 
+};
+
 export default GoToDescriptionBtn;

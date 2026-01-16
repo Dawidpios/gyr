@@ -247,7 +247,7 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar } = useSidebar();
+  const { isMobile, toggleSidebar, state } = useSidebar();
 
   return (
     <Button
@@ -255,7 +255,17 @@ function SidebarTrigger({
       data-slot="sidebar-trigger"
       variant="ghost"
       size="icon"
-      className={cn(`h-7 w-7`, className)}
+      className={cn(
+        `h-7 w-7 fixed z-20 top-2 text-secondary-accent border-2 border-primary-accent rounded-full p-2 bg-primary-accent hover:bg-primary-accent/90 hover:cursor-pointer hover:text-secondary-accent transition-all ease-linear`,
+        className
+      )}
+      style={{
+        // color: state === "collapsed" ? 'var(--color-secondary-accent)' : undefined,
+        left:
+          state === "expanded"
+            ? `calc(${isMobile ? SIDEBAR_WIDTH_MOBILE : SIDEBAR_WIDTH} - 2rem)`
+            : "1rem",
+      }}
       onClick={(event) => {
         onClick?.(event);
         toggleSidebar();

@@ -26,7 +26,7 @@ export default function AddToListButton({ recipeId }: { recipeId: string }) {
 
   return (
     <button
-      className="flex items-center gap-2 cursor-pointer"
+      className="flex items-center gap-2 cursor-pointer border-2 border-text-muted hover:text-primary-accent transition-colors px-3 py-1 rounded-md text-sm"
       onClick={addToList}
     >
       <Bookmark className="h-4 w-4" />

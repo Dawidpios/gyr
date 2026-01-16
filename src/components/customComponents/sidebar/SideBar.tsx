@@ -9,6 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@components/components/ui/sidebar";
 import {
   Refrigerator,
@@ -26,6 +27,11 @@ import { useSession, signOut } from "next-auth/react";
 
 export function AppSidebar() {
   const { status } = useSession();
+  const { setOpen } = useSidebar();
+
+  const closeSideBar = () => {
+    setOpen(false);
+  };
 
   const items = [
     {
@@ -83,8 +89,8 @@ export function AppSidebar() {
   ];
 
   return (
-    <Sidebar>
-      <SidebarContent>
+    <Sidebar onClick={closeSideBar}>
+      <SidebarContent className="bg-secondary-accent/5 backdrop-blur-md">
         <SidebarGroup>
           <SidebarGroupLabel>Get Your Recipie</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -93,7 +99,10 @@ export function AppSidebar() {
                 .filter((item) => item.show === undefined || item.show)
                 .map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton
+                      asChild
+                      className="hover:bg-secondary-accent/50"
+                    >
                       {item.user ? (
                         <Link
                           href={item.url || "#"}

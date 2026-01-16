@@ -6,7 +6,7 @@ export default function RecipePage() {
   return (
     <div className="container mx-auto w-full p-6">
       <div className="w-full flex justify-between p-2 flex-col md:flex-row">
-        <h1 className="mb-6 text-3xl font-bold">
+        <h1 className="mb-6 text-3xl font-bold italic">
           Recipes{" "}
           <p className="text-sm text-gray-500">Your personal cookbook</p>
         </h1>

@@ -41,7 +41,7 @@ export default async function FridgePage() {
   if (!session?.user) {
     notFound();
   }
-  console.log("HALOOOOOO", session.user.id);
+  
   const getFridgeItems = async () => {
     return await prisma.fridgeItem.findMany({
       where: {

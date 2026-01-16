@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, Users } from "lucide-react";
+import { Clock, Users, Trash } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -37,16 +37,16 @@ export function RecipeCard({
   console.log(pathname);
 
   return (
-    <Card className="relative flex flex-col w-80 border-purple shadow-md hover:shadow-lg transition-shadow duration-300">
+    <Card className="relative flex flex-col w-80 border-border-muted hover:shadow-[0_0_5px_oklch(0.93_0.13_99.0)] transition-shadow duration-300">
       <CardHeader className="flex flex-row items-start gap-4 space-y-0">
         <div className="space-y-1">
-          <CardTitle>{recipe.title}</CardTitle>
-          <div className="flex flex-wrap gap-2">
-            <Badge variant="outline" className="flex items-center gap-1">
+          <CardTitle className="italic font-light">{recipe.title}</CardTitle>
+          <div className="flex flex-wrap gap-2 mt-2">
+            <Badge variant="outline" className="flex items-center gap-1 bg-secondary-accent/10">
               <Clock className="h-3 w-3" />
               {recipe.time} min
             </Badge>
-            <Badge variant="outline" className="flex items-center gap-1">
+            <Badge variant="outline" className="flex items-center gap-1 bg-secondary-accent/10">
               <Users className="h-3 w-3" />
               {recipe.portion} servings
             </Badge>
@@ -66,16 +66,16 @@ export function RecipeCard({
               )}
             </ul>
           </div>
-          {recipe.desc !== "" && (
+          {/* {recipe.desc !== "" && (
             <div>
               <h4 className="font-medium">Instructions:</h4>
               <p className="text-sm text-muted-foreground">{recipe.desc}</p>
             </div>
-          )}
+          )} */}
         </div>
         <div className="w-full flex justify-between align-middle mt-4 gap-2">
           <Button
-            className="cursor-pointer text-white hover:bg-black/80  hover:text-white"
+            className="cursor-pointer bg-primary-accent text-white hover:bg-primary-accent/80  hover:text-white"
             onClick={cardHandler}
           >
             Details
@@ -84,10 +84,10 @@ export function RecipeCard({
         </div>
         {(recipe.authorId === userId || pathname.includes("/list")) && (
           <Button
-            className="absolute w-1/4 right-5 top-5 cursor-pointer text-white hover:bg-black/80  hover:text-white"
+            className="absolute bg-primary-accent w-10 right-2 top-2 cursor-pointer text-white hover:bg-primary-accent/60  hover:text-white"
             onClick={() => deleteRecipe(recipe.id, revalidatePath)}
           >
-            Delete
+            <Trash className="h-2 w-2" />
           </Button>
         )}
       </CardContent>

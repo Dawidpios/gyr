@@ -104,14 +104,14 @@ export function RecipeForm() {
 
   return (
     <>
-      <Card className="border-none shadow-none w-full justify-center pl-8 pr-8">
+      <Card className="border-none shadow-none w-full justify-center pl-20 pr-8">
         <CardContent className="p-0">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full space-y-8 flex gap-6 flex-col md:flex-col items-start"
+              className="w-full space-y-4 flex flex-col md:flex-col items-start"
             >
-              <div className="w-full md:w-3/4 space-y-6">
+              <div className="w-full md:w-1/3 space-y-6">
                 <FormField
                   control={form.control}
                   name="title"
@@ -119,7 +119,11 @@ export function RecipeForm() {
                     <FormItem>
                       <FormLabel>Recipe Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Spaghetti Carbonara" {...field} />
+                        <Input
+                          placeholder="Spaghetti Carbonara"
+                          {...field}
+                          className="bg-secondary-accent/10"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -132,9 +136,9 @@ export function RecipeForm() {
                     <FormItem className="flex flex-col w-full">
                       <FormLabel>Ingredients</FormLabel>
                       <div className="space-y-4">
-                        <div className="flex flex-col gap-2 sm:flex-row sm:items-end">
+                        <div className="flex flex-col flex-wrap gap-2 sm:flex-row sm:items-end">
                           <Input
-                            className="w-full sm:max-w-xs"
+                            className="w-full sm:max-w-xs bg-secondary-accent/10"
                             placeholder="Ingredient name"
                             value={newIngredient.name}
                             onChange={(e) =>
@@ -145,7 +149,7 @@ export function RecipeForm() {
                             }
                           />
                           <Input
-                            className="w-full sm:max-w-[100px]"
+                            className="w-full sm:max-w-[100px] bg-secondary-accent/10"
                             type="number"
                             placeholder="Amount"
                             value={newIngredient.amount}
@@ -157,7 +161,7 @@ export function RecipeForm() {
                             }
                           />
                           <select
-                            className="w-full sm:max-w-[140px] rounded-md border border-input bg-background px-3 py-2"
+                            className="w-full sm:max-w-fit rounded-md border border-input bg-background px-3 p-1 text-base shadow- text-s text-text-muted focus-visible:border-[var(--color-primary-accent)] focus-visible:ring-[var(--color-primary-accent)]/50 focus-visible:ring-[3px] bg-secondary-accent/10"
                             value={newIngredient.unit}
                             onChange={(e) =>
                               setNewIngredient({
@@ -166,7 +170,9 @@ export function RecipeForm() {
                               })
                             }
                           >
-                            <option value="">Unit of measurement</option>
+                            <option className="bg-secondary-accent/10" value="">
+                              Unit
+                            </option>
                             {UNITS.map((unit) => (
                               <option key={unit} value={unit}>
                                 {unit}
@@ -174,11 +180,11 @@ export function RecipeForm() {
                             ))}
                           </select>
                           <Button
-                            className="w-full sm:w-auto"
+                            className="w-full sm:w-auto bg-primary-accent/50 hover:bg-primary-accent/70 text-main hover:cursor-pointer"
                             type="button"
                             onClick={addIngredient}
                           >
-                            <Plus className="h-4 w-4" />
+                            <Plus className="h-4 w-4 text-xs" />
                           </Button>
                         </div>
 
@@ -221,7 +227,7 @@ export function RecipeForm() {
                       <FormControl>
                         <Textarea
                           placeholder="Cook pasta. Fry pancetta. Mix eggs and cheese. Combine all ingredients."
-                          className="min-h-[100px]"
+                          className="min-h-[100px] bg-secondary-accent/10"
                           {...field}
                         />
                       </FormControl>
@@ -246,6 +252,7 @@ export function RecipeForm() {
                               setTimeCooking(Number(e.target.value));
                               setInputValue("time", Number(e.target.value));
                             }}
+                            className="bg-secondary-accent/10"
                           />
                         </FormControl>
                         <FormMessage />
@@ -268,6 +275,7 @@ export function RecipeForm() {
                               setPortion(Number(e.target.value));
                               setInputValue("portion", Number(e.target.value));
                             }}
+                            className="bg-secondary-accent/10"
                           />
                         </FormControl>
                         <FormMessage />
@@ -278,7 +286,7 @@ export function RecipeForm() {
               </div>
               <Button
                 type="submit"
-                className="w-full md:w-1/4 hover:bg-black/90 hover:cursor-pointer self-center md:self-start"
+                className="w-full md:w-1/3 font-bold bg-primary-accent hover:bg-primary-accent/80 hover:cursor-pointer self-center md:self-start p-0 m-0"
               >
                 <PlusCircle className="mr-2 h-4 w-4" />
                 Add Recipe

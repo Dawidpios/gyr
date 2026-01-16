@@ -4,7 +4,7 @@ import {
   SidebarTrigger,
 } from "@components/components/ui/sidebar";
 import { AppSidebar } from "@components/components/customComponents/sidebar/SideBar";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import Session from "../context/Session";
 
@@ -16,6 +16,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -32,7 +38,7 @@ export default function RootLayout({
     <html lang="en">
       <Session>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
         >
           <SidebarProvider>
             <AppSidebar />

@@ -5,6 +5,7 @@ import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast, { Toaster } from "react-hot-toast";
+import { useSearchParams } from "next/navigation";
 
 const schema = z.object({
   email: z.string().email(),
@@ -14,6 +15,9 @@ const schema = z.object({
 type loginSchema = z.infer<typeof schema>;
 
 const SignIn = () => {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+
   const {
     register,
     handleSubmit,
@@ -27,7 +31,7 @@ const SignIn = () => {
     const loginStatus = await signIn("credentials", {
       ...data,
       redirect: false,
-      callbackUrl: "/",
+      callbackUrl,
     });
     if (!loginStatus?.ok) {
       toast.error("Login failed");
@@ -39,7 +43,7 @@ const SignIn = () => {
   };
 
   const githubLoginHandler = async () => {
-    signIn("github");
+    signIn("github", { callbackUrl });
   };
 
   return (

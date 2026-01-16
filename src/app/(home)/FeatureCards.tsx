@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@components/components/ui/button";
 import {
@@ -45,28 +44,21 @@ const cards = [
 ];
 const FeatureCards = () => {
   return (
-    <section className="w-full py-12 md:py-16 lg:py-20 flex items-center justify-center">
+    <section className="w-full flex items-center justify-center">
       <div className="container px-4 md:px-6 flex flex-col items-center justify-center">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 justify-center">
+        <div className="flex gap-6 justify-center">
           {cards.map((card) => (
             <Card
               key={card.title}
-              className="w-80 flex flex-col border-purple h-full md:w-full mx-auto"
+              className="w-40 flex flex-col border-purple h-full md:w-fit mx-auto"
             >
               <CardHeader className="flex flex-row items-center gap-4">
-                <div className="bg-purple/50 p-2 rounded-full">
+                <div className="bg-secondary-accent/50 p-2 rounded-full">
                   <card.icon className="h-6 w-6 text-primary" />
                 </div>
                 <CardTitle>{card.title}</CardTitle>
               </CardHeader>
               <CardContent className="flex-1">
-                <Image
-                  src={card.src}
-                  alt={card.alt}
-                  width={400}
-                  height={200}
-                  className="rounded-lg object-cover w-full h-48 mb-4"
-                />
                 <CardDescription className="text-base">
                   {card.description}
                 </CardDescription>
@@ -75,7 +67,7 @@ const FeatureCards = () => {
                 <Link href={card.href} className="w-full">
                   <Button
                     variant="outline"
-                    className="w-full cursor-pointer bg-black text-white hover:bg-black/80 hover:text-white"
+                    className="w-full cursor-pointer bg-primary-accent text-main font-bold hover:bg-primary-accent/80 hover:text-main"
                   >
                     {card.buttonText}
                   </Button>

@@ -4,21 +4,26 @@ import GoToDescriptionBtn from "./GoToDescriptionButton";
 
 const Hero = () => {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-[url('/placeholder.svg?height=800&width=1600')] bg-cover bg-center flex items-center justify-center">
-      <div className="container px-4 md:px-6 flex flex-col items-center justify-center">
-        <div className="flex flex-col items-center space-y-4 text-center">
-          <div className="space-y-2 bg-background/80 backdrop-blur-sm p-6 rounded-lg max-w-3xl">
-            <h1 className="text-3xl text-black font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
-              Delicious Recipes & Smart management
-            </h1>
-            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-              Discover amazing recipes and simplify your grocery shopping with
-              our all-in-one platform.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+    <section
+      className="relative w-full py-12 flex bg-cover bg-center bg-no-repeat md:py-16 lg:py-20 before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-r before:from-orange-200/65 before:via-orange-100/40 before:to-transparent"
+      style={{ backgroundImage: "url('/hero/hero.png')" }}
+    >
+      <div className="container px-4 md:px-6 relative z-10">
+        <div className="flex flex-col text-left">
+          <div className="space-y-2 p-6 rounded-lg max-w-3xl">
+            <div className="space-y-4 mb-4 bg-primary/45 p-4 rounded-lg">
+                <h1 className="text-3xl text-main font-poppins font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
+                Delicious Recipes & Smart management
+              </h1>
+              <p className="mx-auto max-w-[700px] text-main md:text-xl">
+                Discover amazing recipes and simplify your grocery shopping with
+                our all-in-one platform.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-start pt-4">
               <Link href="/recipes" className="cursor-pointer">
                 <Button
-                  className="bg-black hover:bg-black/80 cursor-pointer"
+                  className="text-main font-bold bg-primary-accent hover:bg-primary-accent/70 cursor-pointer"
                   size="lg"
                 >
                   Browse Recipes
