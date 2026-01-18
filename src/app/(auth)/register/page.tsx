@@ -57,20 +57,17 @@ const Register = () => {
     }
   };
   return (
-    <section className="w-full flex min-h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-4">
+    <section
+      className="w-full flex min-h-screen bg-cover items-center justify-center before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-r before:from-orange-200/55 before:via-orange-100/70 before:to-transparent px-4 sm:px-6 lg:px-8"
+      style={{ backgroundImage: "url('/register/registerBackground.png')" }}
+    >
+      <div className="w-fit h-fit bg-main p-6 rounded-lg z-10 max-w-md space-y-4">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-black">
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-primary">
             Create a new account
           </h2>
-          <p className="mt-2 text-center text-sm text-black">
-            Already have an account? <b />
-            <Link
-              className="font-medium text-green hover:text-green/70"
-              href="/login"
-            >
-              Sign in
-            </Link>
+          <p className="mt-2 text-center text-sm text-primary">
+            Sign up to discover recipes and plan your shopping <b />
           </p>
         </div>
         <form onSubmit={handleSubmit(submitHandler)} className="mt-8 space-y-6">
@@ -83,7 +80,7 @@ const Register = () => {
               <input
                 {...register("name")}
                 autoComplete="name"
-                className="relative block w-full rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-purple focus:outline-none focus:ring-green mt-2"
+                className="relative block w-full rounded-lg bg-border-muted border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-primary-accent focus:outline-none focus:ring-primary-accent mt-2"
                 id="name"
                 name="name"
                 placeholder="Name"
@@ -101,7 +98,7 @@ const Register = () => {
               <input
                 {...register("email")}
                 autoComplete="email"
-                className="relative block w-full rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-purple focus:outline-none focus:ring-green mt-2"
+                className="relative block w-full bg-border-muted rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-primary-accent focus:outline-none focus:ring-primary-accent mt-2"
                 id="email-address"
                 name="email"
                 placeholder="Email address"
@@ -119,7 +116,7 @@ const Register = () => {
               <input
                 {...register("password")}
                 autoComplete="new-password"
-                className="relative block w-full rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-purple focus:outline-none focus:ring-green mt-2"
+                className="relative block w-full bg-border-muted rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-primary-accent focus:outline-none focus:ring-primary-accent mt-2"
                 id="password"
                 name="password"
                 placeholder="Password"
@@ -135,11 +132,11 @@ const Register = () => {
           </div>
           <div>
             <button
-              className={`group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm text-white font-bold
+              className={`group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm text-white font-bold bg-primary-accent bg-gradient-to-r from-primary-accent/35 via-primary-accent/65 to-orange-600
     ${
       isSubmitting
-        ? "bg-black/60"
-        : "bg-black hover:bg-black/80 hover: cursor-pointer"
+        ? "bg-text-muted/60"
+        : "hover:bg-primary-accent/80 hover: cursor-pointer"
     }
   `}
               type="submit"
@@ -149,6 +146,12 @@ const Register = () => {
             </button>
           </div>
         </form>
+        <div className="w-full flex items-center justify-center gap-2">
+          <p>Already have an account?</p>
+          <Link className="text-lg text-primary-accent font-bold" href="/login">
+            Log in
+          </Link>
+        </div>
       </div>
       <Toaster />
     </section>

@@ -43,83 +43,84 @@ const SignInForm = () => {
     window.location.href = loginStatus.url || "/";
   };
 
-  const githubLoginHandler = async () => {
-    signIn("github", { callbackUrl });
-  };
-
   return (
-    <section className="w-full h-auto mt-10 flex flex-col">
-      <h2 className="text-center text-2xl text-black">
-        Sign in to your account
-      </h2>
-      <h3 className="text-center text-lg text-black">
-        Or sign up for a <b></b>
-        <Link className="text-lg text-purple" href="/register">
-          new account
-        </Link>
-      </h3>
-      <form
-        onSubmit={handleSubmit(loginHandler)}
-        className="w-90 lg:w-1/3 self-center mt-8 space-y-6"
-      >
-        <input defaultValue="true" name="remember" type="hidden" />
-        <div className="-space-y-px rounded-md ">
-          <div>
-            <label className="sr-only" htmlFor="email-address">
-              Email address
-            </label>
-            <input
-              {...register("email")}
-              autoComplete="email"
-              className="relative block w-full rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-green focus:outline-none focus:ring-green mt-2"
-              id="email-address"
-              name="email"
-              placeholder="Email address"
-              required
-              type="email"
-            />
-            {errors.email && (
-              <p className="text-red-500 font-bold">{errors.email.message}</p>
-            )}
-          </div>
-          <div>
-            <label className="sr-only" htmlFor="password">
-              Password
-            </label>
-            <input
-              {...register("password")}
-              autoComplete="current-password"
-              className="relative block w-full rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-green focus:outline-none focus:ring-green mt-2"
-              id="password"
-              name="password"
-              placeholder="Password"
-              required
-              type="password"
-            />
-            {errors.password && (
-              <p className="text-red-500 font-bold">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-        </div>
-        <button
-          className={`w-full self-center p-2 bg-black text-white text-xl rounded-lg cursor-pointer ${
-            isSubmitting ? "opacity-50 cursor-not-allowed bg-grey" : ""
-          }`}
-          type="submit"
+    <section
+      className="w-full h-auto flex flex-col before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-r before:from-orange-200/55 before:via-orange-100/70 before:to-transparent"
+      style={{ backgroundImage: "url('/hero/hero.png')" }}
+    >
+      <div className=" bg-main  mt-4 container mx-auto px-4 py-12 relative z-10 flex flex-col w-1/4 h-fit rounded-lg bg-white/90 shadow-lg">
+        <h2 className="text-center text-2xl text-black">
+          Welcome Back! 
+        </h2>
+        <h3 className="text-center text-lg text-black">
+          log in to continue<b></b>
+        </h3>
+        <form
+          onSubmit={handleSubmit(loginHandler)}
+          className="w-full self-center mt-8 space-y-6"
         >
-          {isSubmitting
-            ? "Checking credentials..."
-            : "Sign in with credentials"}
-        </button>
-        <button
-          className="w-full self-center p-2 border-2 border-white bg-black text-white text-xl rounded-lg"
-          onClick={githubLoginHandler}
-        >
-          Sign in with GitHub{" "}
-        </button>
-      </form>
+          <input defaultValue="true" name="remember" type="hidden" />
+          <div className="-space-y-px rounded-md ">
+            <div>
+              <label className="sr-only" htmlFor="email-address">
+                Email address
+              </label>
+              <input
+                {...register("email")}
+                autoComplete="email"
+                className="relative block bg-border-muted w-full rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-primary-accent focus:outline-none focus:ring-primary-accent mt-2"
+                id="email-address"
+                name="email"
+                placeholder="Email address"
+                required
+                type="email"
+              />
+              {errors.email && (
+                <p className="text-red-600 text-sm align-center font-bold mt-1">{errors.email.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="sr-only" htmlFor="password">
+                Password
+              </label>
+              <input
+                {...register("password")}
+                autoComplete="current-password"
+                className="relative block bg-border-muted w-full rounded-lg border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:border-2 focus:z-10 focus:border-primary-accent focus:outline-none focus:ring-primary-accent mt-2"
+                id="password"
+                name="password"
+                placeholder="Password"
+                required
+                type="password"
+              />
+              {errors.password && (
+                <p className="text-red-600 text-sm align-center font-bold mt-1">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+          </div>
+          <button
+            className={`w-full self-center p-2 bg-primary-accent bg-gradient-to-r from-primary-accent/35 via-primary-accent/65 to-orange-600 text-white text-xl rounded-lg cursor-pointer ${
+              isSubmitting ? "opacity-50 cursor-not-allowed bg-grey" : ""
+            }`}
+            type="submit"
+          >
+            {isSubmitting
+              ? "Checking credentials..."
+              : "Log in"}
+          </button>
+          <div className="w-full flex items-center justify-center gap-2">
+            <p>Don’t have an account?</p>
+            <Link
+            className="text-lg text-primary-accent font-bold"
+            href="/register"
+          >
+            Sign up
+          </Link>
+          </div>
+        </form>
+      </div>
       <Toaster />
     </section>
   );

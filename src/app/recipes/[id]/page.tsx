@@ -18,30 +18,41 @@ export default async function RecipePage({
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Card className="overflow-hidden">
-        <CardContent className="p-6">
-          <div className="mb-6">
-            <h1 className="mb-2 text-3xl font-bold">{recipe?.title}</h1>
+      <Card className="overflow-hidden border-none shadow-none">
+        <CardContent className="p-6 ">
+          <div className="mb-6 flex space-around flex-wrap gap-4 items-baseline">
+            <h1 className="mb-2 text-3xl font-bold italic text-primary-accent">
+              {recipe?.title}
+            </h1>
+            <div className="mb-6 flex flex-wrap gap-4">
+              <div className="flex items-center gap-2 p-2 bg-secondary-accent/10 border rounded-md">
+                <Clock className="h-5 w-5 text-muted-foreground" />
+                <span className="text-text-muted">
+                  Prep: {recipe?.time?.toString()} mins
+                </span>
+              </div>
+              <div className="flex items-center gap-2 p-2 bg-secondary-accent/10 border rounded-md">
+                <Users className="h-5 w-5 text-muted-foreground" />
+                <span className="text-text-muted">
+                  Serves: {recipe?.portion.toString()}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="mb-6 shadow-sm bg-secondary-accent/10 rounded-md p-4 min-w-1/4 w-fit max-w-1/3">
+            <h2 className="mb-3 text-xl font-semibold italic text-text-muted">
+              Instructions
+            </h2>
             <p className="text-muted-foreground">{recipe?.desc}</p>
           </div>
-
-          <div className="mb-6 flex flex-wrap gap-4">
-            <div className="flex items-center gap-2">
-              <Clock className="h-5 w-5 text-muted-foreground" />
-              <span>Prep: {recipe?.time?.toString()} mins</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Users className="h-5 w-5 text-muted-foreground" />
-              <span>Serves: {recipe?.portion.toString()}</span>
-            </div>
-          </div>
-
-          <div className="mb-6">
-            <h2 className="mb-3 text-xl font-semibold">Ingredients</h2>
+          <div className="mb-6 shadow-sm bg-secondary-accent/10 rounded-md p-4 min-w-1/4 w-fit max-w-1/3">
+            <h2 className="mb-3 text-xl font-semibold italic text-text-muted">
+              Ingredients
+            </h2>
             <ul className="ml-5 list-disc space-y-2">
               {ingredients &&
                 ingredients?.map((ingredient: Ingredient) => (
-                  <li key={ingredient.name}>
+                  <li className="text-text-muted" key={ingredient.name}>
                     {ingredient.name} {ingredient.amount} {ingredient.unit}
                   </li>
                 ))}

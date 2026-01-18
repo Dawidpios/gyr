@@ -40,7 +40,7 @@ export function RecipeCard({
     <Card className="relative flex flex-col w-80 border-border-muted hover:shadow-[0_0_5px_oklch(0.93_0.13_99.0)] transition-shadow duration-300">
       <CardHeader className="flex flex-row items-start gap-4 space-y-0">
         <div className="space-y-1">
-          <CardTitle className="italic font-light">{recipe.title}</CardTitle>
+          <CardTitle className="italic font-light text-primary-accent font-bold justify-start">{recipe.title}</CardTitle>
           <div className="flex flex-wrap gap-2 mt-2">
             <Badge variant="outline" className="flex items-center gap-1 bg-secondary-accent/10">
               <Clock className="h-3 w-3" />
