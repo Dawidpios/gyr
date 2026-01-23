@@ -38,7 +38,7 @@ export default function RootLayout({
     <html lang="en">
       <Session>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased w-full bg-main text-black`}
         >
           <SidebarProvider>
             <AppSidebar />

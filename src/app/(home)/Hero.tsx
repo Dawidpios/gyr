@@ -10,7 +10,7 @@ const Hero = () => {
     >
       <div className="container px-4 md:px-6 relative z-10">
         <div className="flex flex-col text-left">
-          <div className="space-y-2 p-6 rounded-lg max-w-3xl">
+          <div className="space-y-2 p-2 rounded-lg max-w-3xl">
             <div className="space-y-4 mb-4 bg-primary/45 p-4 rounded-lg">
                 <h1 className="text-3xl text-main font-poppins font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
                 Delicious Recipes & Smart management
@@ -23,7 +23,7 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-start pt-4">
               <Link href="/recipes" className="cursor-pointer">
                 <Button
-                  className="text-main font-bold bg-primary-accent hover:bg-primary-accent/70 cursor-pointer"
+                  className="w-full lg:w-fit text-main font-bold bg-primary-accent hover:bg-primary-accent/70 cursor-pointer"
                   size="lg"
                 >
                   Browse Recipes

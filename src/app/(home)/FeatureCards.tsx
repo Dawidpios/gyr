@@ -44,13 +44,13 @@ const cards = [
 ];
 const FeatureCards = () => {
   return (
-    <section className="w-full flex items-center justify-center">
+    <section className="w-full flex items-center justify-center p-6">
       <div className="container px-4 md:px-6 flex flex-col items-center justify-center">
-        <div className="flex gap-6 justify-center">
+        <div className="flex flex-col lg:flex-row gap-6 justify-center">
           {cards.map((card) => (
             <Card
               key={card.title}
-              className="w-40 flex flex-col border-purple h-full md:w-fit mx-auto"
+              className="w-full flex flex-col border-purple h-full md:w-fit mx-auto"
             >
               <CardHeader className="flex flex-row items-center gap-4">
                 <div className="bg-secondary-accent/50 p-2 rounded-full">

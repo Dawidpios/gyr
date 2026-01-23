@@ -260,10 +260,9 @@ function SidebarTrigger({
         className
       )}
       style={{
-        // color: state === "collapsed" ? 'var(--color-secondary-accent)' : undefined,
         left:
           state === "expanded"
-            ? `calc(${isMobile ? SIDEBAR_WIDTH_MOBILE : SIDEBAR_WIDTH} - 2rem)`
+            ? `calc(${isMobile ? '3rem' : SIDEBAR_WIDTH} - 2rem)`
             : "1rem",
       }}
       onClick={(event) => {

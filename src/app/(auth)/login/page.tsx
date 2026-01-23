@@ -48,7 +48,7 @@ const SignInForm = () => {
       className="w-full h-auto flex flex-col before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-r before:from-orange-200/55 before:via-orange-100/70 before:to-transparent"
       style={{ backgroundImage: "url('/hero/hero.png')" }}
     >
-      <div className=" bg-main  mt-4 container mx-auto px-4 py-12 relative z-10 flex flex-col w-1/4 h-fit rounded-lg bg-white/90 shadow-lg">
+      <div className=" bg-main mt-auto mb-auto container mx-auto px-4 py-12 relative z-10 flex flex-col w-96 lg:w-fit h-fit rounded-lg bg-white/90 shadow-lg">
         <h2 className="text-center text-2xl text-black">
           Welcome Back! 
         </h2>

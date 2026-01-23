@@ -39,17 +39,17 @@ export default async function RecipePage({
               </div>
             </div>
           </div>
-          <div className="mb-6 shadow-sm bg-secondary-accent/10 rounded-md p-4 min-w-1/4 w-fit max-w-1/3">
+          <div className="mb-6 shadow-sm bg-secondary-accent/10 rounded-md p-4 w-full lg:min-w-1/4 lg:w-fit lg:max-w-1/3">
             <h2 className="mb-3 text-xl font-semibold italic text-text-muted">
               Instructions
             </h2>
             <p className="text-muted-foreground">{recipe?.desc}</p>
           </div>
-          <div className="mb-6 shadow-sm bg-secondary-accent/10 rounded-md p-4 min-w-1/4 w-fit max-w-1/3">
+          <div className="mb-6 shadow-sm bg-secondary-accent/10 rounded-md p-4 w-full lg:min-w-1/4 lg:w-fit lg:max-w-1/3">
             <h2 className="mb-3 text-xl font-semibold italic text-text-muted">
               Ingredients
             </h2>
-            <ul className="ml-5 list-disc space-y-2">
+            <ul className="ml-5 list-disc space-y-2 w-full">
               {ingredients &&
                 ingredients?.map((ingredient: Ingredient) => (
                   <li className="text-text-muted" key={ingredient.name}>
