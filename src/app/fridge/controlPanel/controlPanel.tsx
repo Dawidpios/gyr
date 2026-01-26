@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import { Input } from "@components/components/ui/input";
-import { CirclePlus, CircleMinus, Trash, PackagePlus } from "lucide-react";
+import { Plus, Minus, Trash2, PackagePlus } from "lucide-react";
+import { Button } from "@components/components/ui/button";
 
 interface ControlPanelProps {
   id: string;
@@ -21,6 +22,7 @@ const ControlPanel = ({
   };
 
   const decrement = () => {
+    if(inputValue <= 0) return;
     if (inputValue > 0) {
       setInputValue((prev) => prev - 1);
     }
@@ -38,13 +40,14 @@ const ControlPanel = ({
     }
   };
 
-
-
   return (
-    <div className="w-full flex items-start p-4 gap-2">
+    <div className="m-2 w-full flex items-start pb-4 gap-2">
       <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-2">
-          <CirclePlus className="cursor-pointer" onClick={increment} />
+        <div className="flex items-center flex-wrap gap-2 mb-4">
+          <Button className=" bg-primary-accent font-bold text-lg cursor-pointer hover:bg-primary-accent-hover" onClick={increment}>
+             <Plus />
+          </Button>
+         
           <Input
             value={inputValue}
             onChange={(e) => setInputValue(Number(e.target.value))}
@@ -52,21 +55,30 @@ const ControlPanel = ({
             placeholder="Quantity"
             className="w-1/3 max-w-sm"
           />
-          <CircleMinus
-            style={{ display: inputValue > 0 ? "block" : "none" }}
-            className="cursor-pointer"
-            onClick={decrement}
+          <Button className=" bg-primary-accent font-bold text-lg cursor-pointer hover:bg-primary-accent-hover" onClick={decrement} variant="outline" disabled={inputValue === 0}>
+            <Minus
+            style={{
+              color:
+                inputValue === 0
+                  ? "var(--color-text-muted)"
+                  : "var(--color-text-primary)",
+            }}
           />
-          <PackagePlus
-            className={`mr-auto cursor-pointer rounded-md text-2xl ${
-              !inputValue ? "opacity-50" : ""
-            }`}
-            onClick={updateItemQuantityHandler}
-          ></PackagePlus>
+          </Button>
+          
         </div>
+        <button
+          className={`absolute w-fit text-xs bg-primary-accent text-main font-bold bottom-2 left-2 mt-2 inline cursor-pointer rounded-md p-2 ${
+            !inputValue ? "opacity-50" : ""
+          }`}
+          onClick={updateItemQuantityHandler}
+        > 
+          Increment product quantity
+          <PackagePlus className="inline m-1"></PackagePlus>
+        </button>
       </div>
-      <Trash
-        className="ml-auto cursor-pointer self-start"
+      <Trash2
+        className="absolute w-5 h-5 text-red-600 bottom-2 right-2 cursor-pointer hover:text-red-800"
         onClick={deleteItemHandler}
       />
     </div>

@@ -20,12 +20,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@components/components/ui/select";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarHeader,
-  SidebarRail,
-} from "@components/components/ui/sidebar";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -86,11 +80,8 @@ export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
   }
 
   return (
-    <Sidebar id="fridgeBar" side="right">
-      <SidebarHeader className="border-b p-4">
-        <h2 className="text-lg font-semibold">Add Product</h2>
-      </SidebarHeader>
-      <SidebarContent>
+
+     <div className="bg-secondary-accent/10 w-full md:w-80 lg:w-96 p-6 lg:p-2 border-l border-gray-200">
         <div className="p-4">
           <Form {...form}>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -101,7 +92,7 @@ export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
                   <FormItem>
                     <FormLabel>Product Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter product name" {...field} />
+                      <Input placeholder="Enter product name" {...field} className="bg-white"/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -115,7 +106,7 @@ export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
                   <FormItem>
                     <FormLabel>Quantity</FormLabel>
                     <FormControl>
-                      <Input type="number" min={1} {...field} />
+                      <Input type="number" min={1} {...field} className="bg-white"/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -133,11 +124,11 @@ export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a category" />
+                        <SelectTrigger className="bg-white">
+                          <SelectValue className="bg-white" placeholder="Select a category" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
+                      <SelectContent className="bg-white">
                         {categories.map((category) => (
                           <SelectItem
                             key={category.value}
@@ -152,10 +143,9 @@ export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
                   </FormItem>
                 )}
               />
-
               <Button
                 type="submit"
-                className={`w-full hover:bg-black/80 hover:cursor-pointer ${
+                className={`w-full bg-primary-accent hover:bg-primary-accent/80 hover:cursor-pointer ${
                   formState.isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                 }`}
                 disabled={formState.isSubmitting}
@@ -166,9 +156,10 @@ export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
             </form>
           </Form>
         </div>
-      </SidebarContent>
-      <SidebarRail />
+
+
       <Toaster />
-    </Sidebar>
+     </div>
+
   );
 }
