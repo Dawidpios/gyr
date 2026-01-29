@@ -7,6 +7,7 @@ import { AppSidebar } from "@components/components/customComponents/sidebar/Side
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import Session from "../context/Session";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({
             <AppSidebar />
             <SidebarTrigger />
             {children}
+            <Toaster />
           </SidebarProvider>
         </body>
       </Session>

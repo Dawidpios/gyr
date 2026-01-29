@@ -12,7 +12,7 @@ export default async function RecipePage({
   const { id } = await params;
   const recipe = await prisma.recipes.findUnique({
     where: { id: id },
-    include: { ingredients: true },
+    include: { ingredients: { where: { listId: null } } },
   });
   const ingredients = recipe?.ingredients as Ingredient[];
 

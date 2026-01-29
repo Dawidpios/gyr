@@ -3,6 +3,7 @@
 import revalidate from "@components/lib/revalidate";
 import { Bookmark } from "lucide-react";
 import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 export default function AddToListButton({ recipeId }: { recipeId: string }) {
   const { data: session } = useSession();
@@ -21,6 +22,9 @@ export default function AddToListButton({ recipeId }: { recipeId: string }) {
     revalidate(["/list"]);
     if (!response.ok) {
       console.error("Failed to add to shopping list");
+      toast.error("Failed to add to shopping list");
+    } else {
+      toast.success("Added to shopping list");
     }
   };
 

@@ -11,9 +11,8 @@ const deleteIngredient = async (id: string | number) => {
     throw new Error("Unauthorized");
   }
 
-  await prisma.ingredient.update({
+  await prisma.ingredient.delete({
     where: { id: id as string },
-    data: { listId: null },
   });
   await revalidate("/list");
 };

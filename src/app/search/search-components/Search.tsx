@@ -65,17 +65,17 @@ export default function Component({
   const activeFiltersCount = selectedTypes.length;
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <div className="container mx-auto px-4 py-8 sm:py-2 w-full max-w-7xl">
       <Header />
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <div className="grid lg:grid-cols-[300px_1fr] gap-8">
+      <div className="flex flex-col sm:flex-row gap-4">
         <FilterSideBar
           activeFiltersCount={activeFiltersCount}
           selectedTypes={selectedTypes}
           handleTypeChange={handleTypeChange}
           clearAllFilters={clearAllFilters}
         />
-        <div className="space-y-6">
+        <div className="space-y-2">
           <ResultsHeader
             filteredResultsLength={
               filteredResults.length + filteredRecipes.length
@@ -88,7 +88,7 @@ export default function Component({
             selectedTypes={selectedTypes}
             handleTypeChange={handleTypeChange}
           />
-          <div className="grid gap-6">
+          <div className="w-full flex flex-col sm:flex-row flex-wrap gap-2">
             <Results
               filteredResults={filteredResults}
               filteredRecipes={filteredRecipes}

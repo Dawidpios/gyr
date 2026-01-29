@@ -13,7 +13,7 @@ export default function IngredientsPage({ ingredients }: { ingredients: Ingredie
       <div className="max-w-2xl mx-auto">
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl font-bold text-center">
+            <CardTitle className="text-2xl font-bold text-center text-primary-accent/75 italic">
               Ingredients List
             </CardTitle>
           </CardHeader>
@@ -27,9 +27,9 @@ export default function IngredientsPage({ ingredients }: { ingredients: Ingredie
                 ingredients.map((ingredient, index) => (
                   <div
                     key={ingredient.id || index}
-                    className="flex items-center justify-between p-3 bg-muted rounded-lg hover:bg-muted/80 transition-colors"
+                    className="flex items-center justify-between p-3 bg-secondary-accent/20 rounded-lg hover:bg-secondary-accent/60 hover:cursor-pointer transition-colors"
                   >
-                    <span className="font-medium">
+                    <span className="font-medium text-primary">
                       {ingredient.name}
                       {ingredient.amount &&
                         ` - ${ingredient.amount} ${ingredient.unit}`}

@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
@@ -121,7 +121,6 @@ const SignInForm = () => {
           </div>
         </form>
       </div>
-      <Toaster />
     </section>
   );
 };

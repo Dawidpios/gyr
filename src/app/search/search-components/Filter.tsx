@@ -1,4 +1,3 @@
-import { Button } from "@components/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,9 +10,7 @@ import { Label } from "@components/components/ui/label";
 export default function FilterContent({
   types,
   selectedTypes,
-  onTypeChange,
-  onClearAll,
-  activeFiltersCount,
+  onTypeChange
 }: {
   types: string[];
   selectedTypes: string[];
@@ -26,17 +23,12 @@ export default function FilterContent({
       {/* Filter Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold">Filters</h3>
-        {activeFiltersCount > 0 && (
-          <Button variant="ghost" size="sm" onClick={onClearAll}>
-            Clear all
-          </Button>
-        )}
       </div>
 
       {/* Type Filter */}
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-base">Type</CardTitle>
+      <Card className="bg-secondary-accent/10">
+        <CardHeader className="">
+          <CardTitle className="text-base italic text-primary-accent">Type</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           {types.map((type) => (

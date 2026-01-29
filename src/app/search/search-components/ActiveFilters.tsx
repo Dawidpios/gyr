@@ -1,5 +1,4 @@
 import { Badge } from "@components/components/ui/badge";
-import { X } from "lucide-react";
 
 type activeFilters = {
   activeFiltersCount: number;
@@ -7,18 +6,14 @@ type activeFilters = {
   handleTypeChange: (type: string, checked: boolean) => void;
 }
 
-const ActiveFilters = ({activeFiltersCount, selectedTypes, handleTypeChange} : activeFilters) => {
+const ActiveFilters = ({activeFiltersCount, selectedTypes } : activeFilters) => {
   return (
     <>
       {activeFiltersCount > 0 && (
         <div className="flex flex-wrap gap-2">
           {selectedTypes.map((type) => (
-            <Badge key={type} variant="secondary" className="gap-1">
+            <Badge key={type}  className="gap-1 bg-secondary-accent/40 text-text-muted">
               {type}
-              <X
-                className="h-3 w-3 cursor-pointer"
-                onClick={() => handleTypeChange(type, false)}
-              />
             </Badge>
           ))}
         </div>

@@ -37,9 +37,9 @@ const FilterSideBar = ({
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   return (
-    <div className="space-y-6">
+    <div className="w-full sm:w-1/6 space-y-2">
       {/* Mobile Filter Toggle */}
-      <div className="lg:hidden">
+      <div className="sm:hidden">
         <Collapsible open={isFiltersOpen} onOpenChange={setIsFiltersOpen}>
           <CollapsibleTrigger asChild>
             <Button variant="outline" className="w-full justify-between">
@@ -54,7 +54,7 @@ const FilterSideBar = ({
               </div>
             </Button>
           </CollapsibleTrigger>
-          <CollapsibleContent className="mt-4 space-y-6">
+          <CollapsibleContent className="mt-4 space-y-2">
             <FilterContent
               types={types}
               selectedTypes={selectedTypes}
@@ -67,7 +67,7 @@ const FilterSideBar = ({
       </div>
 
       {/* Desktop Filters */}
-      <div className="hidden lg:block">
+      <div className="w-full hidden sm:block">
         <FilterContent
           types={types}
           selectedTypes={selectedTypes}

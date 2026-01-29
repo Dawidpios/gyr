@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 const schema = z.object({
@@ -153,7 +153,6 @@ const Register = () => {
           </Link>
         </div>
       </div>
-      <Toaster />
     </section>
   );
 };

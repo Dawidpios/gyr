@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   });
 
   const ingredients = await prisma.ingredient.findMany({
-    where: { recipeId },
+    where: { recipeId, listId: null },
   });
 
   for (const ingredient of ingredients) {
@@ -37,9 +37,14 @@ export async function POST(req: Request) {
         data: { amount: (existing.amount ?? 0) + (ingredient.amount ?? 0) },
       });
     } else {
-      await prisma.ingredient.update({
-        where: { id: ingredient.id },
-        data: { listId: list.id },
+      await prisma.ingredient.create({
+        data: {
+          name: ingredient.name,
+          amount: ingredient.amount,
+          unit: ingredient.unit,
+          listId: list.id,
+          recipeId: recipeId,
+        },
       });
     }
   }

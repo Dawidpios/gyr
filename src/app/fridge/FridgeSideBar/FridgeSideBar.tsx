@@ -25,7 +25,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import revalidate from "@components/lib/revalidate";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -156,9 +156,6 @@ export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
             </form>
           </Form>
         </div>
-
-
-      <Toaster />
      </div>
 
   );

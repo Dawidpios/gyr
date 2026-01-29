@@ -20,7 +20,7 @@ import addRecipe from "./add-recipe";
 import { useState } from "react";
 import revalidate from "@lib/revalidate";
 import { useSession } from "next-auth/react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { UNITS, formSchema } from "./constans";
 
 export function RecipeForm() {
@@ -295,7 +295,6 @@ export function RecipeForm() {
           </Form>
         </CardContent>
       </Card>
-      <Toaster position="top-center" />
     </>
   );
 }
