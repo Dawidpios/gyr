@@ -61,10 +61,13 @@ export default async function FridgePage() {
   const products = await getFridgeItems();
 
   return (
-    <div className="w-full flex flex-col-reverse sm:flex-row">
+    <div className="w-full flex flex-col sm:flex-row-reverse items-start">
+      <FridgeSideBar categories={categories} id={fridge?.id || ""} />
       <div className="container mx-auto p-4">
-        <div className="flex items-center justify-between">
-          <h1 className="mt-6 mb-6 text-3xl font-bold italic text-primary-accent">My Fridge</h1>
+        <div className="flex items-center justify-between ">
+          <h1 className="mb-6 text-3xl font-bold italic text-primary-accent">
+            My Fridge
+          </h1>
         </div>
         <div className="flex flex-wrap gap-6">
           {!products ||
@@ -98,7 +101,6 @@ export default async function FridgePage() {
           ))}
         </div>
       </div>
-      <FridgeSideBar categories={categories} id={fridge?.id || ""} />
     </div>
   );
 }

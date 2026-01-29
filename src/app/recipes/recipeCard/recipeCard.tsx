@@ -37,7 +37,7 @@ export function RecipeCard({
   console.log(pathname);
 
   return (
-    <Card className="relative flex flex-col w-80 border-border-muted hover:shadow-[0_0_5px_oklch(0.93_0.13_99.0)] transition-shadow duration-300">
+    <Card className="relative flex flex-col w-full sm:w-1/4 border-border-muted hover:shadow-[0_0_5px_oklch(0.93_0.13_99.0)] transition-shadow duration-300">
       <CardHeader className="flex flex-row items-start gap-4 space-y-0">
         <div className="space-y-1">
           <CardTitle className="italic font-light text-primary-accent font-bold justify-start">{recipe.title}</CardTitle>
@@ -66,12 +66,6 @@ export function RecipeCard({
               )}
             </ul>
           </div>
-          {/* {recipe.desc !== "" && (
-            <div>
-              <h4 className="font-medium">Instructions:</h4>
-              <p className="text-sm text-muted-foreground">{recipe.desc}</p>
-            </div>
-          )} */}
         </div>
         <div className="w-full flex justify-between align-middle mt-4 gap-2">
           <Button

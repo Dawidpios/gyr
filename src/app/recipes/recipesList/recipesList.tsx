@@ -21,7 +21,7 @@ export async function RecipeList({
     }
 
     return (
-      <div className="flex flex-wrap gap-4">
+      <div className="flex justify-center flex-wrap gap-4">
         {recipes.map((recipe) => (
           <RecipeCard
             key={recipe.id}

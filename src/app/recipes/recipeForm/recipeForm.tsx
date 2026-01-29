@@ -44,7 +44,8 @@ export function RecipeForm() {
       image: "",
     },
   });
-
+  const {formState: { isSubmitting }
+  } = form
   const addIngredient = () => {
     if (!newIngredient.name || !newIngredient.amount || !newIngredient.unit)
       return;
@@ -104,14 +105,14 @@ export function RecipeForm() {
 
   return (
     <>
-      <Card className="border-none shadow-none w-full justify-center pl-20 pr-8">
+      <Card className="border-none shadow-none w-full justify-center pl-8 sm:pl-20 pr-8">
         <CardContent className="p-0">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full space-y-4 flex flex-col md:flex-col items-start"
+              className="w-full space-y-4 flex flex-col sm:flex-col sm:items-center"
             >
-              <div className="w-full md:w-1/3 space-y-6">
+              <div className="w-full sm:w-1/2 space-y-6">
                 <FormField
                   control={form.control}
                   name="title"
@@ -241,7 +242,7 @@ export function RecipeForm() {
                     name="time"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Cooking Time (minutes)</FormLabel>
+                        <FormLabel className="text-xs">Cooking Time (minutes)</FormLabel>
                         <FormControl>
                           <Input
                             type="number"
@@ -264,7 +265,7 @@ export function RecipeForm() {
                     name="portion"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Servings</FormLabel>
+                        <FormLabel className="text-xs">Servings</FormLabel>
                         <FormControl>
                           <Input
                             type="number"
@@ -286,10 +287,12 @@ export function RecipeForm() {
               </div>
               <Button
                 type="submit"
-                className="w-full md:w-1/3 font-bold bg-primary-accent hover:bg-primary-accent/80 hover:cursor-pointer self-center md:self-start p-0 m-0"
+                className={`w-full sm:w-1/2 font-bold bg-primary-accent hover:bg-primary-accent/80 hover:cursor-pointer self-center p-0 m-0 ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
+                disabled={isSubmitting}
+                
               >
                 <PlusCircle className="mr-2 h-4 w-4" />
-                Add Recipe
+                {isSubmitting ? "Adding..." : "Add Recipe"}
               </Button>
             </form>
           </Form>
