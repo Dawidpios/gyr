@@ -1,5 +1,5 @@
 "use client";
-import { PlusCircle, Plus, X } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -8,7 +8,6 @@ import { Card, CardContent } from "@components/components/ui/card";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -21,7 +20,8 @@ import { useState } from "react";
 import revalidate from "@lib/revalidate";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
-import { UNITS, formSchema } from "./constans";
+import { formSchema } from "./constans";
+import IngredientsForm from "./formField/Ingredients";
 
 export function RecipeForm() {
   const session = useSession();
@@ -44,8 +44,9 @@ export function RecipeForm() {
       image: "",
     },
   });
-  const {formState: { isSubmitting }
-  } = form
+  const {
+    formState: { isSubmitting },
+  } = form;
   const addIngredient = () => {
     if (!newIngredient.name || !newIngredient.amount || !newIngredient.unit)
       return;
@@ -67,7 +68,7 @@ export function RecipeForm() {
     const currentIngredients = form.getValues("ingredients");
     form.setValue(
       "ingredients",
-      currentIngredients.filter((_, i) => i !== index)
+      currentIngredients.filter((_, i) => i !== index),
     );
   };
 
@@ -98,7 +99,7 @@ export function RecipeForm() {
 
   const setInputValue = (
     field: keyof z.infer<typeof formSchema>,
-    value: string | number
+    value: string | number,
   ) => {
     form.setValue(field, value, { shouldValidate: true });
   };
@@ -110,7 +111,7 @@ export function RecipeForm() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full space-y-4 flex flex-col sm:flex-col sm:items-center"
+              className="w-full space-y-4 flex flex-col flex-wrap sm:flex-col sm:items-center"
             >
               <div className="w-full sm:w-1/2 space-y-6">
                 <FormField
@@ -130,94 +131,12 @@ export function RecipeForm() {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="ingredients"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col w-full">
-                      <FormLabel>Ingredients</FormLabel>
-                      <div className="space-y-4">
-                        <div className="flex flex-col flex-wrap gap-2 sm:flex-row sm:items-end">
-                          <Input
-                            className="w-full sm:max-w-xs bg-secondary-accent/10"
-                            placeholder="Ingredient name"
-                            value={newIngredient.name}
-                            onChange={(e) =>
-                              setNewIngredient({
-                                ...newIngredient,
-                                name: e.target.value,
-                              })
-                            }
-                          />
-                          <Input
-                            className="w-full sm:max-w-[100px] bg-secondary-accent/10"
-                            type="number"
-                            placeholder="Amount"
-                            value={newIngredient.amount}
-                            onChange={(e) =>
-                              setNewIngredient({
-                                ...newIngredient,
-                                amount: e.target.value,
-                              })
-                            }
-                          />
-                          <select
-                            className="w-full sm:max-w-fit rounded-md border border-input bg-background px-3 p-1 text-base shadow- text-s text-text-muted focus-visible:border-[var(--color-primary-accent)] focus-visible:ring-[var(--color-primary-accent)]/50 focus-visible:ring-[3px] bg-secondary-accent/10"
-                            value={newIngredient.unit}
-                            onChange={(e) =>
-                              setNewIngredient({
-                                ...newIngredient,
-                                unit: e.target.value,
-                              })
-                            }
-                          >
-                            <option className="bg-secondary-accent/10" value="">
-                              Unit
-                            </option>
-                            {UNITS.map((unit) => (
-                              <option key={unit} value={unit}>
-                                {unit}
-                              </option>
-                            ))}
-                          </select>
-                          <Button
-                            className="w-full sm:w-auto bg-primary-accent/50 hover:bg-primary-accent/70 text-main hover:cursor-pointer"
-                            type="button"
-                            onClick={addIngredient}
-                          >
-                            <Plus className="h-4 w-4 text-xs" />
-                          </Button>
-                        </div>
-
-                        <div className="space-y-2">
-                          {field.value?.map((ingredient, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center gap-2"
-                            >
-                              <span className="flex-1">
-                                {ingredient.amount} {ingredient.unit}{" "}
-                                {ingredient.name}
-                              </span>
-                              <Button
-                                type="button"
-                                variant="ghost"
-                                size="sm"
-                                className="hover:cursor-pointer"
-                                onClick={() => removeIngredient(index)}
-                              >
-                                <X className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      <FormDescription>
-                        Add ingredients with amount and unit.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                <IngredientsForm
+                  form={form}
+                  newIngredient={newIngredient}
+                  setNewIngredient={setNewIngredient}
+                  addIngredient={addIngredient}
+                  removeIngredient={removeIngredient}
                 />
                 <FormField
                   control={form.control}
@@ -242,7 +161,9 @@ export function RecipeForm() {
                     name="time"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-xs">Cooking Time (minutes)</FormLabel>
+                        <FormLabel className="text-xs">
+                          Cooking Time (minutes)
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="number"
@@ -289,7 +210,6 @@ export function RecipeForm() {
                 type="submit"
                 className={`w-full sm:w-1/2 font-bold bg-primary-accent hover:bg-primary-accent/80 hover:cursor-pointer self-center p-0 m-0 ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
                 disabled={isSubmitting}
-                
               >
                 <PlusCircle className="mr-2 h-4 w-4" />
                 {isSubmitting ? "Adding..." : "Add Recipe"}

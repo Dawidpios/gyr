@@ -20,7 +20,7 @@ const addRecipe = async (formData: FormData) => {
     const image = formData.get("image") as string;
 
     if (!title || !time || !portion || !ingredients) {
-      throw new Error("Wszystkie pola są wymagane");
+      throw new Error("All fields are required.");
     }
 
     await prisma.recipes.create({
@@ -43,10 +43,10 @@ const addRecipe = async (formData: FormData) => {
 
     return { success: true };
   } catch (error) {
-    console.error("Błąd podczas dodawania przepisu:", error);
+    console.error("Error adding recipe:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : "Nieznany błąd",
+      error: error instanceof Error ? error.message : "Unknown error",
     };
   }
 };

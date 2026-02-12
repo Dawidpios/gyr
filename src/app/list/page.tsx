@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@components/lib/authOptions";
 import IngredientsPage from "./IngredientsPage";
 import { Ingredients } from "./ingredients";
+import IngredientPanel from "./IngredientPanel";
 
 const ListPage = async () => {
   const session = await getServerSession(authOptions);
@@ -17,11 +18,18 @@ const ListPage = async () => {
       ingredients: true,
     },
   });
-  const ingredients = list?.ingredients || [];
+  const userIngredients = await prisma.user.findUnique({
+    where: { id: session.user.id as string },
+    select: {
+      ingredients: true,
+    }
+  })
+  const ingredients = [...(list?.ingredients || []), ...(userIngredients?.ingredients || [])]
 
   return (
-    <div className="flex flex-col flex-wrap w-full gap-4 m-5">
+    <div className="flex flex-col sm:flex-row flex-nowrap w-full gap-4 m-5">
       <IngredientsPage ingredients={ingredients as unknown as Ingredients[]} />
+      <IngredientPanel />
     </div>
   );
 };

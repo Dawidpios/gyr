@@ -7,9 +7,13 @@ import {
 import { Ingredients } from "./ingredients";
 import DeleteIngredientButton from "./DeleteIngredientButton";
 
-export default function IngredientsPage({ ingredients }: { ingredients: Ingredients[] }) {
+export default function IngredientsPage({
+  ingredients,
+}: {
+  ingredients: Ingredients[];
+}) {
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-fit bg-background p-6 w-full">
       <div className="max-w-2xl mx-auto">
         <Card>
           <CardHeader>
@@ -20,9 +24,11 @@ export default function IngredientsPage({ ingredients }: { ingredients: Ingredie
           <CardContent className="space-y-4">
             <div className="space-y-2">
               {ingredients.length === 0 ? (
-                <p className="text-muted-foreground text-center py-8">
-                  No ingredients added yet. Add some above!
-                </p>
+                <>
+                  <p className="text-muted-foreground text-center py-8">
+                    No ingredients added yet.
+                  </p>
+                </>
               ) : (
                 ingredients.map((ingredient, index) => (
                   <div

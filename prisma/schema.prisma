@@ -9,17 +9,18 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  name      String?
-  email     String?   @unique
-  password  String
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-  posts     Post[]
-  fridge    Fridge?   @relation("UserFridge")
-  list      List?     @relation("UserList")
-  myRecipes Recipes[] @relation("UserMyRecipes")
-  recipes   Recipes[] @relation("UserRecipes")
+  id          String       @id @default(cuid())
+  name        String?
+  email       String?      @unique
+  password    String
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  ingredients Ingredient[] @relation("UserIngredients")
+  posts       Post[]
+  fridge      Fridge?      @relation("UserFridge")
+  list        List?        @relation("UserList")
+  myRecipes   Recipes[]    @relation("UserMyRecipes")
+  recipes     Recipes[]    @relation("UserRecipes")
 
   @@map("users")
 }
@@ -55,8 +56,8 @@ model List {
   created_at  DateTime     @default(now()) @db.Timestamptz(6)
   name        String
   userId      String       @unique
-  user        User         @relation("UserList", fields: [userId], references: [id])
   ingredients Ingredient[]
+  user        User         @relation("UserList", fields: [userId], references: [id])
 
   @@map("list")
 }
@@ -87,12 +88,14 @@ model FridgeItem {
 }
 
 model Ingredient {
-  id       String  @id @default(cuid())
+  id       String   @id @default(cuid())
   name     String
   amount   Float?
   unit     String?
-  recipeId String
-  recipe   Recipes @relation(fields: [recipeId], references: [id])
-  list     List?   @relation(fields: [listId], references: [id])
+  recipeId String?
   listId   String?
+  userId   String?
+  list     List?    @relation(fields: [listId], references: [id])
+  recipe   Recipes? @relation(fields: [recipeId], references: [id])
+  user     User?    @relation("UserIngredients", fields: [userId], references: [id])
 }

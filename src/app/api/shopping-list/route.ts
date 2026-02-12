@@ -23,13 +23,18 @@ export async function POST(req: Request) {
   });
 
   for (const ingredient of ingredients) {
-    const existing = await prisma.ingredient.findFirst({
-      where: {
-        listId: list.id,
-        name: ingredient.name,
-        unit: ingredient.unit,
-      },
+    const normalizedName = ingredient.name.trim().toLowerCase();
+    const normalizedUnit = ingredient.unit?.trim().toLowerCase() || null;
+
+    const allListIngredients = await prisma.ingredient.findMany({
+      where: { listId: list.id },
     });
+
+    const existing = allListIngredients.find(
+      (item) =>
+        item.name.trim().toLowerCase() === normalizedName &&
+        (item.unit?.trim().toLowerCase() || null) === normalizedUnit,
+    );
 
     if (existing) {
       await prisma.ingredient.update({
