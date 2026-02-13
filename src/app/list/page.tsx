@@ -4,6 +4,7 @@ import { authOptions } from "@components/lib/authOptions";
 import IngredientsPage from "./IngredientsPage";
 import { Ingredients } from "./ingredients";
 import IngredientPanel from "./IngredientPanel";
+import IngredientDataPanel from "./IngredientDataPanel";
 
 const ListPage = async () => {
   const session = await getServerSession(authOptions);
@@ -22,14 +23,20 @@ const ListPage = async () => {
     where: { id: session.user.id as string },
     select: {
       ingredients: true,
-    }
-  })
-  const ingredients = [...(list?.ingredients || []), ...(userIngredients?.ingredients || [])]
+    },
+  });
+  const ingredients = [
+    ...(list?.ingredients || []),
+    ...(userIngredients?.ingredients || []),
+  ];
 
   return (
-    <div className="flex flex-col sm:flex-row flex-nowrap w-full gap-4 m-5">
+    <div className="flex flex-col sm:flex-row flex-nowrap w-full gap-1 m-2">
+      <div className="flex flex-col w-full sm:w-1/3 p-2 sm:p-4 sm:pr-0 sm:pt-6 sm:ml-8 mt-8 sm:mt-0">
+        <IngredientPanel />
+        <IngredientDataPanel />
+      </div>
       <IngredientsPage ingredients={ingredients as unknown as Ingredients[]} />
-      <IngredientPanel />
     </div>
   );
 };

@@ -6,7 +6,6 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@components/components/ui/form";
 import { Input } from "@components/components/ui/input";
@@ -46,7 +45,6 @@ const IngredientsForm = ({
       name="ingredients"
       render={({ field }) => (
         <FormItem className="flex flex-col w-full">
-          <FormLabel>Ingredients</FormLabel>
           <div className="space-y-4">
             <div className="flex flex-col flex-wrap gap-2 sm:flex-row sm:items-end">
               <Input

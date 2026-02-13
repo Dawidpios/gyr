@@ -13,7 +13,7 @@ export default function IngredientsPage({
   ingredients: Ingredients[];
 }) {
   return (
-    <div className="min-h-fit bg-background p-6 w-full">
+    <div className="min-h-fit bg-background p-4 w-full">
       <div className="max-w-2xl mx-auto">
         <Card>
           <CardHeader>

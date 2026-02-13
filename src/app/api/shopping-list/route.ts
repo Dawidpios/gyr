@@ -59,3 +59,33 @@ export async function POST(req: Request) {
     message: "Recipe added to the list",
   });
 }
+
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const userId = searchParams.get("userId");
+
+  if (!userId) {
+    return NextResponse.json({ status: 400, message: "Missing userId" });
+  }
+
+  const list = await prisma.list.findUnique({
+    where: { userId: userId },
+    include: {
+      ingredients: true,
+    },
+  });
+
+  if (!list) {
+    return NextResponse.json({ status: 404, message: "List not found" });
+  }
+
+  const Content = list.ingredients
+    .map((ing) => `${ing.name} - ${ing.amount} ${ing.unit}`)
+    .join("\n");
+  return new NextResponse(Content, {
+    headers: {
+      "Content-Type": "text/plain",
+      "Content-Disposition": `attachment; filename="shopping-list.txt"`,
+    },
+  });
+}

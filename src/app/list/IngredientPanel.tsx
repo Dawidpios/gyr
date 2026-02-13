@@ -42,7 +42,7 @@ const IngredientPanel = () => {
   };
 
   return (
-    <div className="p-4 w-1/4 h-fit">
+    <div className=" w-full h-fit justify-center items-center ">
       <Form {...form}>
         <section className="flex flex-col gap-3 mb-4">
           <IngredientsForm
