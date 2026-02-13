@@ -84,7 +84,7 @@ export async function GET(req: Request) {
     .join("\n");
   return new NextResponse(Content, {
     headers: {
-      "Content-Type": "text/plain",
+      "Content-Type": "application/octet-stream",
       "Content-Disposition": `attachment; filename="shopping-list.txt"`,
     },
   });
