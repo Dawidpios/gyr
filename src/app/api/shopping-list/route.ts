@@ -79,13 +79,63 @@ export async function GET(req: Request) {
     return NextResponse.json({ status: 404, message: "List not found" });
   }
 
-  const Content = list.ingredients
-    .map((ing) => `${ing.name} - ${ing.amount} ${ing.unit}`)
-    .join("\n");
-  return new NextResponse(Content, {
+  const { PDFDocument, rgb, StandardFonts } = await import('pdf-lib');
+  
+  const pdfDoc = await PDFDocument.create();
+  let page = pdfDoc.addPage([595, 842]); // A4 size
+  const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+  
+  const { height } = page.getSize();
+  let yPosition = height - 50;
+  
+  // Tytuł
+  page.drawText('Shopping List', {
+    x: 50,
+    y: yPosition,
+    size: 24,
+    font: boldFont,
+    color: rgb(0, 0, 0),
+  });
+  
+  yPosition -= 30;
+  
+  // Data
+  page.drawText(new Date().toLocaleDateString(), {
+    x: 50,
+    y: yPosition,
+    size: 10,
+    font: font,
+    color: rgb(0.5, 0.5, 0.5),
+  });
+  
+  yPosition -= 30;
+  
+  // Składniki
+  list.ingredients.forEach((ing, index) => {
+    if (yPosition < 50) {
+      page = pdfDoc.addPage([595, 842]);
+      yPosition = height - 50;
+    }
+    
+    const text = `${index + 1}. ${ing.name} - ${ing.amount} ${ing.unit}`;
+    page.drawText(text, {
+      x: 50,
+      y: yPosition,
+      size: 12,
+      font: font,
+      color: rgb(0, 0, 0),
+    });
+    
+    yPosition -= 20;
+  });
+  
+  const pdfBytes = await pdfDoc.save();
+  
+  return new NextResponse(Buffer.from(pdfBytes), {
     headers: {
-      "Content-Type": "application/octet-stream",
-      "Content-Disposition": `attachment; filename="shopping-list.txt"`,
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `attachment; filename="shopping-list.pdf"`,
     },
   });
 }
