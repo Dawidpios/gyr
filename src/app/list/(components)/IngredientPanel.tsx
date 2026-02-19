@@ -1,12 +1,12 @@
 "use client";
-import IngredientsForm from "../recipes/recipeForm/formField/Ingredients";
+import IngredientsForm from "@app/recipes/recipeForm/formField/Ingredients";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { formSchema } from "../recipes/recipeForm/constans";
+import { formSchema } from "@app/recipes/recipeForm/constans";
 import { useState } from "react";
 import { Form } from "@components/components/ui/form";
-import addIngredient from "./helpers/addIngredient";
+import addIngredient from "../helpers/addIngredient";
 import revalidate from "@components/lib/revalidate";
 import toast from "react-hot-toast";
 

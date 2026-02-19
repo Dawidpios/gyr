@@ -81,6 +81,7 @@ model FridgeItem {
   updated_at DateTime @updatedAt @db.Timestamptz(6)
   category   String
   fridgeId   String?
+  unit       String?
   fridge     Fridge?  @relation(fields: [fridgeId], references: [id])
 
   @@unique([name, fridgeId])

@@ -17,6 +17,7 @@ type Product = {
   name: string;
   quantity: number;
   category: string;
+  unit?: string | null;
 };
 
 const categories = [
@@ -65,7 +66,7 @@ export default async function FridgePage() {
       <FridgeSideBar categories={categories} id={fridge?.id || ""} />
       <div className="container mx-auto p-4">
         <div className="flex items-center justify-between ">
-          <h1 className="mb-6 text-3xl font-bold italic text-primary-accent">
+          <h1 className="mb-6 sm:pl-8 text-3xl font-bold italic text-primary-accent">
             My Fridge
           </h1>
         </div>
@@ -90,7 +91,9 @@ export default async function FridgePage() {
                       ?.label.split(" ")[1] || "📦"}
                   </div>
                 </div>
-                <CardDescription>Quantity: {product.quantity}</CardDescription>
+                <CardDescription>
+                  Quantity: {product.quantity} {product?.unit ?? "pcs"}
+                </CardDescription>
               </CardHeader>
               <ControlPanel
                 id={product?.id || ""}

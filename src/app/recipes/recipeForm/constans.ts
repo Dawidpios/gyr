@@ -23,4 +23,4 @@ export const formSchema = z.object({
   image: z.string().optional(),
 });
 
-export const UNITS = ["g", "ml", "pcs", "tablespoon", "teaspoon", "cup"];
+export const UNITS = ["g", "pcs"];

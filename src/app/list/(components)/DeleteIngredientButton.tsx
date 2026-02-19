@@ -1,5 +1,5 @@
 "use client";
-import deleteIngredient from "./helpers/deleteIngredient";
+import deleteIngredient from "../helpers/deleteIngredient";
 import { Button } from "@components/components/ui/button";
 import { Trash2 } from "lucide-react";
 
