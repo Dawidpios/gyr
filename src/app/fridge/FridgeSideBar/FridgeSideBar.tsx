@@ -101,7 +101,6 @@ export function FridgeSideBar({ categories, id }: ProductSidebarProps) {
                 </FormItem>
               )}
             />
-
             <FormField
               control={control}
               name="quantity"

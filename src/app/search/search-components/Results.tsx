@@ -11,6 +11,8 @@ type Ingredient = {
   id: string | number;
   name: string;
   category: string;
+  quantity: number | null;
+  unit: string | null;
 };
 
 type ResultItem = {
@@ -19,6 +21,7 @@ type ResultItem = {
 };
 
 const Results = ({ filteredResults, filteredRecipes }: ResultItem) => {
+  console.log(filteredResults);
   return (
     <>
       {" "}
@@ -33,11 +36,14 @@ const Results = ({ filteredResults, filteredRecipes }: ResultItem) => {
                 <div className="flex items-start justify-between">
                   <div className="space-y-2">
                     <CardTitle className="text-xl text-primary/75 italic">
-                      {item.name}
+                      {item.name}{" "}
+                      <p className="text-text-muted text-sm inline">
+                        {item.quantity} {item.unit}
+                      </p>
                     </CardTitle>
                     <div className="flex items-center gap-2">
                       <Badge className="bg-primary-accent text-main font-bold text-xs">
-                        {item.category}
+                        Fridge
                       </Badge>
                     </div>
                   </div>

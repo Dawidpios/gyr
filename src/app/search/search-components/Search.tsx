@@ -13,6 +13,8 @@ type Ingredient = {
   id: string | number;
   name: string;
   category: string;
+  quantity: number | null;
+  unit: string | null;
 };
 
 type PickedRecipe = {

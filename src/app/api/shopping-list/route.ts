@@ -1,6 +1,30 @@
 import prisma from "@components/lib/prisma";
 import { NextResponse } from "next/server";
 
+function normalizeTextForPDF(text: string): string {
+  const charMap: { [key: string]: string } = {
+    ą: "a",
+    ć: "c",
+    ę: "e",
+    ł: "l",
+    ń: "n",
+    ó: "o",
+    ś: "s",
+    ź: "z",
+    ż: "z",
+    Ą: "A",
+    Ć: "C",
+    Ę: "E",
+    Ł: "L",
+    Ń: "N",
+    Ó: "O",
+    Ś: "S",
+    Ź: "Z",
+    Ż: "Z",
+  };
+  return text.replace(/[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/g, (char) => charMap[char] || char);
+}
+
 export async function POST(req: Request) {
   const data = await req.json();
   const { recipeId, userId } = data;
@@ -79,27 +103,27 @@ export async function GET(req: Request) {
     return NextResponse.json({ status: 404, message: "List not found" });
   }
 
-  const { PDFDocument, rgb, StandardFonts } = await import('pdf-lib');
-  
+  const { PDFDocument, rgb, StandardFonts } = await import("pdf-lib");
+
   const pdfDoc = await PDFDocument.create();
   let page = pdfDoc.addPage([595, 842]); // A4 size
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
   const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
-  
+
   const { height } = page.getSize();
   let yPosition = height - 50;
-  
+
   // Tytuł
-  page.drawText('Shopping List', {
+  page.drawText(normalizeTextForPDF("Shopping List"), {
     x: 50,
     y: yPosition,
     size: 24,
     font: boldFont,
     color: rgb(0, 0, 0),
   });
-  
+
   yPosition -= 30;
-  
+
   // Data
   page.drawText(new Date().toLocaleDateString(), {
     x: 50,
@@ -108,30 +132,30 @@ export async function GET(req: Request) {
     font: font,
     color: rgb(0.5, 0.5, 0.5),
   });
-  
+
   yPosition -= 30;
-  
+
   // Składniki
   list.ingredients.forEach((ing, index) => {
     if (yPosition < 50) {
       page = pdfDoc.addPage([595, 842]);
       yPosition = height - 50;
     }
-    
+
     const text = `${index + 1}. ${ing.name} - ${ing.amount} ${ing.unit}`;
-    page.drawText(text, {
+    page.drawText(normalizeTextForPDF(text), {
       x: 50,
       y: yPosition,
       size: 12,
       font: font,
       color: rgb(0, 0, 0),
     });
-    
+
     yPosition -= 20;
   });
-  
+
   const pdfBytes = await pdfDoc.save();
-  
+
   return new NextResponse(Buffer.from(pdfBytes), {
     headers: {
       "Content-Type": "application/pdf",
