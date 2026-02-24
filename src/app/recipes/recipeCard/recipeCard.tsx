@@ -59,7 +59,7 @@ export function RecipeCard({
             <h4 className="font-medium">Ingredients:</h4>
             <ul className="ml-5 list-disc text-sm">
               {recipe.ingredients.slice(0, 3).map((desc, index) => (
-                <li key={index}>{desc.name}</li>
+                <li key={`${Math.random()}-${index}`}>{desc.name}</li>
               ))}
               {recipe.ingredients.length > 3 && (
                 <li className="italic text-muted-foreground">...and more</li>

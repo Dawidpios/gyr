@@ -101,7 +101,7 @@ const IngredientsForm = ({
 
             <div className="space-y-2">
               {field.value?.map((ingredient, index) => (
-                <div key={index} className="flex items-center gap-2">
+                <div key={`${Math.random}-${index}`} className="flex items-center gap-2">
                   <span className="flex-1">
                     {ingredient.amount} {ingredient.unit} {ingredient.name}
                   </span>
@@ -110,7 +110,7 @@ const IngredientsForm = ({
                     variant="ghost"
                     size="sm"
                     className="hover:cursor-pointer"
-                    onClick={() => removeIngredient && removeIngredient(index)}
+                    onClick={() => removeIngredient?.(index)}
                   >
                     <X className="h-4 w-4" />
                   </Button>

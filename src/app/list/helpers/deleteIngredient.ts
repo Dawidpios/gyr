@@ -7,7 +7,7 @@ import revalidate from "@components/lib/revalidate";
 const deleteIngredient = async (id: string | number) => {
   const session = await getServerSession(authOptions);
 
-  if (!session || !session.user) {
+  if (!session?.user) {
     throw new Error("Unauthorized");
   }
 
