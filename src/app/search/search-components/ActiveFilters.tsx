@@ -3,7 +3,6 @@ import { Badge } from "@components/components/ui/badge";
 type activeFilters = {
   activeFiltersCount: number;
   selectedTypes: string[];
-  handleTypeChange: (type: string, checked: boolean) => void;
 }
 
 const ActiveFilters = ({activeFiltersCount, selectedTypes } : activeFilters) => {

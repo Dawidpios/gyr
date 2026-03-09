@@ -18,8 +18,8 @@ export default function IngredientsPage({
   ingredients,
   fridgeItems,
 }: {
-  ingredients: Ingredients[];
-  fridgeItems: FridgeItem[];
+  readonly ingredients: Ingredients[];
+  readonly fridgeItems: FridgeItem[];
 }) {
   return (
     <div className="min-h-fit bg-background p-4 w-full">

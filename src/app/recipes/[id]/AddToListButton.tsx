@@ -5,7 +5,7 @@ import { Bookmark } from "lucide-react";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 
-export default function AddToListButton({ recipeId }: { recipeId: string }) {
+export default function AddToListButton({ recipeId }: { readonly recipeId: string }) {
   const { data: session } = useSession();
 
   if (!session?.user) {

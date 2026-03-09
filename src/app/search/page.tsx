@@ -6,7 +6,7 @@ import { authOptions } from "@components/lib/authOptions";
 export default async function Page() {
   const session = await getServerSession(authOptions);
 
-  if (!session || !session.user?.id) {
+  if (!session?.user?.id) {
     throw new Error("User is not authenticated or session is invalid.");
   }
 

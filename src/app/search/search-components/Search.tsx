@@ -27,8 +27,8 @@ export default function Component({
   ingredients,
   recipes,
 }: {
-  ingredients: Ingredient[];
-  recipes: PickedRecipe[];
+  readonly ingredients: Ingredient[];
+  readonly recipes: PickedRecipe[];
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
@@ -88,7 +88,6 @@ export default function Component({
           <ActiveFilters
             activeFiltersCount={activeFiltersCount}
             selectedTypes={selectedTypes}
-            handleTypeChange={handleTypeChange}
           />
           <div className="w-full flex flex-col sm:flex-row flex-wrap gap-2">
             <Results

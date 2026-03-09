@@ -249,6 +249,11 @@ function SidebarTrigger({
 }: React.ComponentProps<typeof Button>) {
   const { isMobile, toggleSidebar, state } = useSidebar();
 
+  const sidebarWidth = isMobile ? '3rem' : SIDEBAR_WIDTH;
+  const leftPosition = state === "expanded" 
+    ? `calc(${sidebarWidth} - 2rem)` 
+    : "1rem";
+
   return (
     <Button
       data-sidebar="trigger"
@@ -260,10 +265,7 @@ function SidebarTrigger({
         className
       )}
       style={{
-        left:
-          state === "expanded"
-            ? `calc(${isMobile ? '3rem' : SIDEBAR_WIDTH} - 2rem)`
-            : "1rem",
+        left: leftPosition,
       }}
       onClick={(event) => {
         onClick?.(event);

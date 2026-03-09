@@ -7,7 +7,7 @@ import AddToListButton from "./AddToListButton";
 export default async function RecipePage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  readonly params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
   const recipe = await prisma.recipes.findUnique({
@@ -50,12 +50,11 @@ export default async function RecipePage({
               Ingredients
             </h2>
             <ul className="ml-5 list-disc space-y-2 w-full">
-              {ingredients &&
-                ingredients?.map((ingredient: Ingredient) => (
-                  <li className="text-text-muted" key={ingredient.name}>
-                    {ingredient.name} {ingredient.amount} {ingredient.unit}
-                  </li>
-                ))}
+              {ingredients?.map((ingredient: Ingredient) => (
+                <li className="text-text-muted" key={ingredient.name}>
+                  {ingredient.name} {ingredient.amount} {ingredient.unit}
+                </li>
+              ))}
             </ul>
           </div>
           <div className="mt-8 flex flex-wrap gap-4">

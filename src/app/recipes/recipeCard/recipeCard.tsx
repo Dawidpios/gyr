@@ -9,15 +9,15 @@ import {
 } from "@components/components/ui/card";
 import { Badge } from "@components/components/ui/badge";
 import { Recipe } from "@components/app/recipes/recipe";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
 import AddToListButton from "../[id]/AddToListButton";
 import { Button } from "@components/components/ui/button";
+import { v4 as uuidv4 } from 'uuid';
 
 interface RecipeCardProps {
-  recipe: Recipe;
-  revalidatePath: string;
+  readonly recipe: Recipe;
+  readonly revalidatePath: string;
   deleteRecipe: (id: string, revalidatePath: string) => void;
 }
 
@@ -58,8 +58,8 @@ export function RecipeCard({
           <div>
             <h4 className="font-medium">Ingredients:</h4>
             <ul className="ml-5 list-disc text-sm">
-              {recipe.ingredients.slice(0, 3).map((desc, index) => (
-                <li key={`${Math.random()}-${index}`}>{desc.name}</li>
+              {recipe.ingredients.slice(0, 3).map((desc) => (
+                <li key={uuidv4()}>{desc.name}</li>
               ))}
               {recipe.ingredients.length > 3 && (
                 <li className="italic text-muted-foreground">...and more</li>

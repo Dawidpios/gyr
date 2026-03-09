@@ -1,7 +1,6 @@
 "use client";
 import { Plus, X } from "lucide-react";
 import { Button } from "@components/components/ui/button";
-
 import {
   FormDescription,
   FormField,
@@ -9,10 +8,10 @@ import {
   FormMessage,
 } from "@components/components/ui/form";
 import { Input } from "@components/components/ui/input";
-
 import { UNITS, formSchema } from "../constans";
 import { UseFormReturn } from "react-hook-form";
 import * as z from "zod";
+import {v4 as uuid4} from "uuid";
 
 interface IngredientsFormProps {
   form: UseFormReturn<z.infer<typeof formSchema>>;
@@ -101,7 +100,7 @@ const IngredientsForm = ({
 
             <div className="space-y-2">
               {field.value?.map((ingredient, index) => (
-                <div key={`${Math.random}-${index}`} className="flex items-center gap-2">
+                <div key={uuid4()} className="flex items-center gap-2">
                   <span className="flex-1">
                     {ingredient.amount} {ingredient.unit} {ingredient.name}
                   </span>

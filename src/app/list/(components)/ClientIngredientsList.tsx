@@ -13,8 +13,8 @@ interface FridgeItem {
 }
 
 interface ClientIngredientsListProps {
-  ingredients: Ingredients[];
-  fridgeItems: FridgeItem[];
+  readonly ingredients: Ingredients[];
+  readonly fridgeItems: FridgeItem[];
 }
 
 export default function ClientIngredientsList({

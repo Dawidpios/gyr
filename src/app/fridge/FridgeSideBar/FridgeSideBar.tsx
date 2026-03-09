@@ -42,8 +42,8 @@ const formSchema = z.object({
 type ProductFormValues = z.infer<typeof formSchema>;
 
 type ProductSidebarProps = {
-  categories: { value: string; label: string }[];
-  id: string;
+  readonly categories: { value: string; label: string }[];
+  readonly id: string;
 };
 
 export function FridgeSideBar({ categories, id }: ProductSidebarProps) {

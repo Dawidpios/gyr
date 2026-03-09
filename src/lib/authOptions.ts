@@ -1,6 +1,5 @@
 import type { NextAuthOptions } from "next-auth";
-import GitHubProvider from "next-auth/providers/github";
-import { GithubProfile } from "next-auth/providers/github";
+import GitHubProvider, { GithubProfile } from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 declare module "next-auth" {

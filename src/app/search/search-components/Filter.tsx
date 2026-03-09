@@ -12,11 +12,9 @@ export default function FilterContent({
   selectedTypes,
   onTypeChange
 }: {
-  types: string[];
-  selectedTypes: string[];
+  readonly types: string[];
+  readonly selectedTypes: string[];
   onTypeChange: (type: string, checked: boolean) => void;
-  onClearAll: () => void;
-  activeFiltersCount: number;
 }) {
   return (
     <>

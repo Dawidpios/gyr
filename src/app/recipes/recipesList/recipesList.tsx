@@ -9,9 +9,9 @@ export async function RecipeList({
   revalidatePath = "/list",
   getAll = true,
 }: {
-  recipesList?: Recipe[];
-  revalidatePath: string;
-  getAll?: boolean;
+  readonly recipesList?: Recipe[];
+  readonly revalidatePath: string;
+  readonly getAll?: boolean;
 }) {
   try {
     const recipes = !getAll ? recipesList : await getAllRecipes();

@@ -31,8 +31,7 @@ interface FilterSideBarProps {
 const FilterSideBar = ({
   activeFiltersCount,
   selectedTypes,
-  handleTypeChange,
-  clearAllFilters,
+  handleTypeChange
 }: FilterSideBarProps) => {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
@@ -59,8 +58,6 @@ const FilterSideBar = ({
               types={types}
               selectedTypes={selectedTypes}
               onTypeChange={handleTypeChange}
-              onClearAll={clearAllFilters}
-              activeFiltersCount={activeFiltersCount}
             />
           </CollapsibleContent>
         </Collapsible>
@@ -72,8 +69,6 @@ const FilterSideBar = ({
           types={types}
           selectedTypes={selectedTypes}
           onTypeChange={handleTypeChange}
-          onClearAll={clearAllFilters}
-          activeFiltersCount={activeFiltersCount}
         />
       </div>
     </div>
